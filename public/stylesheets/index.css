@@ -6,10 +6,19 @@
     font-family: 'main';
     src: url(../fonts/oswald.woff2);
 }
+@font-face {
+    font-family: 'bebas';
+    src: url(../fonts/bebas.woff2);
+}
 .topmost h1{
     font-family: 'rock';
 }
 .top h1{
     font-family: 'main';
+    
+}
+.page2 h1{
+    font-family: 'main';
+    letter-spacing: 1px;
     
 }

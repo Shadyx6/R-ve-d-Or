@@ -9,6 +9,5 @@ function handleClick() {
     collapseMenu.style.display = 'block';
   }
 }
-console.log('helo')
 toggleOpen.addEventListener('click', handleClick);
 toggleClose.addEventListener('click', handleClick);
