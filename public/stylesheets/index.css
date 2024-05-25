@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'rock';
+    src: url(../fonts/RockSalt-Regular.woff2);
+}
+@font-face {
+    font-family: 'main';
+    src: url(../fonts/oswald.woff2);
+}
+.topmost h1{
+    font-family: 'rock';
+}
+.top h1{
+    font-family: 'main';
+    
+}
