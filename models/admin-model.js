@@ -10,8 +10,8 @@ const adminSchema = mongoose.Schema({
        email:String,
        password: String,
        products: {
-        type: String,
-        default: []
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'products'
        },
        contact: Number,
        profilePicture: String,

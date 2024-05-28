@@ -1,0 +1,75 @@
+<%- include('./partials/Header.ejs', {hidden: true}) %>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">Admin Panel</a>
+            <a href="#" class="text-sm">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8">
+        <div class="flex flex-col md:flex-row">
+
+            <!-- Sidebar -->
+            <div class="w-full md:w-1/4 bg-gray-200 p-4">
+                <h2 class="text-lg font-semibold mb-4">Navigation</h2>
+                <ul>
+                    <li><a href="#" class="block py-2 px-4 bg-gray-300 mb-2 rounded">Dashboard</a></li>
+                    <li><a href="#" class="block py-2 px-4 bg-gray-300 mb-2 rounded">Products</a></li>
+                    <li><a href="#" class="block py-2 px-4 bg-gray-300 mb-2 rounded">Orders</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="w-full md:w-3/4 p-4">
+                <h2 class="text-2xl font-semibold mb-4">Upload Clothing Product</h2>
+                <form action="push" method="POST" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="title" class="block mb-2">Title</label>
+                        <input type="text" id="title" name="title" class="w-full px-4 py-2 border rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label for="description" class="block mb-2">Description</label>
+                        <textarea id="description" name="description" rows="4"
+                            class="w-full px-4 py-2 border rounded"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="price" class="block mb-2">Price</label>
+                        <input type="text" id="price" name="price" class="w-full px-4 py-2 border rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label for="size" class="block mb-2">Size</label>
+                        <select id="size" name="size" class="w-full px-4 py-2 border rounded">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="xl">XL</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="color" class="block mb-2">Color</label>
+                        <input type="text" id="color" name="color" class="w-full px-4 py-2 border rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label for="image" class="block mb-2">Image</label>
+                        <input type="file" id="image" name="images" multiple class=" w-full">
+                    </div>
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Upload</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+</html>
+
+  
+<%- include('./partials/Footer.ejs') %>

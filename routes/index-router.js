@@ -4,11 +4,15 @@ const userModel = require('../models/user-model');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const debug = require('debug')('development:routes')
-router.get('/', isLoggedIn, function (req, res) {
+const isLoggedIn = require('../middlewares/auth')
+const productModel = require('../models/product-model')
+router.get('/', isLoggedIn, async function (req, res) {
+    let feat = await productModel.find({category: 'men shirt'})
+    console.log(feat)
    if (req.user) {
-    res.render('index', {user: req.user})
+    res.render('index', {user: req.user, feat})
    } else {
-    res.render('index', {user: 'null'})
+    res.render('index', {user: 'null', feat})
    }
 })
 router.get('/access', function (req, res) {
@@ -61,23 +65,6 @@ router.post('/login', async (req, res) => {
         console.log(error.message)
     }
 })
-
-function isLoggedIn(req, res, next) {
-    let token = req.cookies.token
-    if (!token) {
-        req.user = null
-        return next()
-    }
-    try {
-        jwt.verify(token, process.env.TOKEN, (err, data) => {
-            if (err) console.log(err)
-            req.user = data
-            next()
-        })
-    } catch (error) {
-        console.log(error.message)
-    }
-}
 
 router.get('/logout', (req, res) => {
     res.clearCookie('token')

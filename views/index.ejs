@@ -1,231 +1,286 @@
 <%- include('partials/Header.ejs') %>
-    <div class="wrapper bg-[#FFFFF0] h-full w-full">
-        <div class="page1 h-[107vh] overflow-x-hidden w-full">
-        <section class="w-full topmost bg-gradient-to-r from-purple-100 to-pink-100 h-1/2 flex p-5 px-6 gap-3">
-            <div class="w-3/4 h-full bg-fuchsia-200 rounded-xl">
-                <h1 class="text-white tracking-widest text-4xl m-6">The most <span class="text-yellow-500">Glamorous</span> <br><span class="ml-2 text-blue-600">Shirt</span></h1>
-            </div>
-            <div class="w-1/2 h-full bg-cyan-100 rounded-xl">
-            </div>
-        </section>
-        <section h-full w-screen overflow-x-hidden>
-            <div class="top flex items-center justify-between p-6">
-                <div class="text-4xl">
-                    <h1>Featured Products</h1>
-                </div>
-                <!-- <div class="flex gap-3">
+  <div class="wrapper bg-[#FFFFF0] h-full w-full">
+    <div class="page1 h-[107vh] overflow-x-hidden w-full">
+      <section class="w-full topmost bg-gradient-to-r from-purple-100 to-pink-100 h-1/2 flex p-5 px-6 gap-3">
+        <div class="w-3/4 h-full bg-fuchsia-200 rounded-xl">
+          <h1 class="text-white tracking-widest text-4xl m-6">
+            The most <span class="text-yellow-500">Glamorous</span> <br /><span class="ml-2 text-blue-600">Shirt</span>
+          </h1>
+        </div>
+        <div class="w-1/2 h-full bg-cyan-100 rounded-xl"></div>
+      </section>
+      <section h-full w-screen overflow-x-hidden>
+        <div class="top flex items-center justify-between p-6">
+          <div class="text-4xl">
+            <h1>Featured Products</h1>
+          </div>
+          <!-- <div class="flex gap-3">
                     <i class="ri-arrow-left-s-line text-2xl text-black border-2 rounded-xl border-solid p-2 border-bg-white"></i>
                     <i class="ri-arrow-right-s-line text-2xl text-black border-2 rounded-xl border-solid p-2 border-bg-white"></i>
                 </div> -->
+        </div>
+        <div class="h-fit w-fit flex gap-6 p-6 overflow-x-hidden px-14">
+          <% feat.forEach((product) => { %> 
+            <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex flex-col shadow-lg justify-end items-end">
+              <div class="h-full w-full">
+                <img class="h-full w-full mt-8" src="<%= product.images%>" alt="">
+              </div>
+              <div class="title min-h-12 w-full bg-white flex items-center justify-center">
+                <h2 class="text-center "> <%= product.title %> </h2>
+              </div>
             </div>
-         <div class="h-fit w-fit flex gap-6 p-6 overflow-x-hidden px-14">
-                <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex shadow-lg  justify-end items-end">
-                    <div class="title h-10 w-full bg-white text-center ">
-                        <h2>Some text</h2>
-                    </div>
-                </div>
-                <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex shadow-lg  justify-end items-end">
-                    <div class="title h-10 w-full bg-white text-center ">
-                        <h2>Some text</h2>
-                    </div>
-                </div>
-                <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex shadow-lg  justify-end items-end">
-                    <div class="title h-10 w-full bg-white text-center ">
-                        <h2>Some text</h2>
-                    </div>
-                </div>
-                <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex shadow-lg  justify-end items-end">
-                    <div class="title h-10 w-full bg-white text-center ">
-                        <h2>Some text</h2>
-                    </div>
-                </div>
-                <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex shadow-lg  justify-end items-end">
-                    <div class="title h-10 w-full bg-white text-center ">
-                        <h2>Some text</h2>
-                    </div>
-                </div>
-                
-
-         </div>
-        </section>
+         <% }) %>
+          
+        </div>
+      </section>
     </div>
     <div class="page2 h-full">
-        
-  <div class="max-w-full h-fit bg-[#FFFFF0] sm:px-6 sm:py-8 lg:max-w-8xl lg:px-8">
-    <h1 class="text-2xl tracking-tight text-gray-900 text-4xl">Trending <span class="text-[#800020]">Outfits</span></h1>
+      <div class="max-w-full h-fit bg-[#FFFFF0] sm:px-6 sm:py-8 lg:max-w-8xl lg:px-8">
+        <h1 class="text-2xl tracking-tight text-gray-900 text-4xl">
+          Trending <span class="text-[#800020]">Outfits</span>
+        </h1>
 
-    <div class="mt-10 ml-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-">
-      <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+        <div class="mt-10 ml-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-">
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
-        </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
-    </div>
-    <div class="group relative">
-        <div class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
-        </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
-    </div>
-    <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
-        </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
-    </div>
-    <div class="group relative">
-        <div class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
-        </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
-    </div>
-    <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
-        </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
-    </div>
-    <div class="group relative">
-        <div class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
-        </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
-    </div>
-    <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
-        </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
-    </div>
-    <div class="group relative">
-        <div class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-xl text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+          <div class="group relative">
+            <div
+              class="aspect-h-1 aspect-w-0.5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                alt="Front of men&#039;s Basic Tee in black."
+                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-xl text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    Basic Tee
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">Black</p>
+              </div>
+              <p class="text-2xl font-medium text-gray-900">$35</p>
+            </div>
+            <div class="box h-12 w-full bg-black flex items-center mt-2">
+              <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <i class="ri-shopping-cart-2-line"></i> Add to cart
+              </button>
+            </div>
           </div>
-          <p class="text-2xl font-medium text-gray-900">$35</p>
         </div>
-        <div class="box h-12 w-full bg-black flex items-center mt-2">
-           
-            <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center"> <i class="ri-shopping-cart-2-line"></i> Add to cart</button>
-        </div>
+      </div>
     </div>
-   
+    <div class="page3 h-screen w-full flex">
+      <section class="w-1/2 h-full flex flex-col justify-center items-center gap-6">
+        <h1 class="text-6xl">
+          Every Girl's a <span class="diva text-9xl">DIVA</span>
+        </h1>
+        <p class="w-[600px] text-center">
+          Unveil your unique style with our fabulous collection. Ready for a
+          grown-up glow? Explore our women's section!
+        </p>
+        <button class="px-6 py-2 text-2xl rounded-lg text-center bg-black text-white">
+          SHOP NOW!
+        </button>
+      </section>
+      <section class="w-3/5 h-screen overflow-hidden flex justify-cente items-center hover:scale-125 ease-in duration-150">
+        <section class="w-full h- ml-20 bg-red-200">
+          <img class="w-full h-screen object-cover object-top" src="/media/bella.jpg" alt="" />
+        </section>
+      </section>
+    </div>
+    <div class="page4 h-screen w-full flex relative">
+      <section class="h-full w-1/2 flex items-center justify-center">
+        <h1 class="absolute whitespace-nowrap top-[48%] -translate-1/2 -left-[12%] -rotate-90 text-4xl z-50">EXPLORE OUR <span class="text-[#000080]">MEN'S</span> GENRE</h1>
+        <div class="h-3/4 w-3/4 bg-black">
+          <img class="h-full w-full object-cover" src="https://i.pinimg.com/originals/7e/5f/ee/7e5feeacfe0e286c961b14c8cf516f02.jpg" alt="">
+        </div>
+      </section>
+      <section class="w-1/2 h-full flex flex-col justify-center items-center gap-6">  
+        <h1 class="text-5xl bebas whitespace-nowrap">
+          Fewer clothes, better quality
+        </h1>
+        <p class="w-[600px] text-center">
+          Get equipped with apparel that supports every endeavor. Our men’s collection delivers function and form in equal measure.
+        </p>
+        <button class="px-6 py-2 text-2xl rounded-lg text-center bg-black text-white">
+          EXPLORE NOW!
+        </button>
+      </section>
+    </div>
   </div>
-</div>
-    </div>
-    </div>
-<%- include('partials/Footer.ejs') %>
+  <%- include('partials/Footer.ejs') %>

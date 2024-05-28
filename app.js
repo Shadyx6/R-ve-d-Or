@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const port = process.env.PORT || 3000
 const indexRouter = require('./routes/index-router')
 const db = require('./config/mongoose.connection')
+const adminRouter = require('./routes/admin-router')
 
 app.set('views', path.join((__dirname), 'views'))
 app.set('view engine', 'ejs')
@@ -19,6 +20,8 @@ app.get('/access', indexRouter)
 app.post('/register', indexRouter)
 app.post('/login', indexRouter)
 app.get('/logout', indexRouter)
+app.get('/add', adminRouter)
+app.post('/push', adminRouter)
 
 app.listen(port, () => {
     console.log(`server is running on http://localhost:${port}`)

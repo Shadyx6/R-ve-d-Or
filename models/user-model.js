@@ -25,7 +25,10 @@ const userModel = mongoose.Schema({
    },
    contact: Number,
    picture: String,
-   isAdmin: Boolean
+   isAdmin: {
+      type: Boolean,
+      default: false
+   }
 })
 
 module.exports = mongoose.model('user', userModel)
