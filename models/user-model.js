@@ -25,7 +25,7 @@ const userModel = mongoose.Schema({
    },
    contact: Number,
    picture: String,
-   isAdmin: {
+   isSeller: {
       type: Boolean,
       default: false
    }

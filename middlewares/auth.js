@@ -1,17 +1,20 @@
 const jwt = require('jsonwebtoken');
 function isLoggedIn(req, res, next) {
-    let token = req.cookies.token
-    if (!token) {
-        return next()
-    }
-    try {
-        jwt.verify(token, process.env.TOKEN, (err, data) => {
-            if (err) console.log(err)
-            req.user = data
-            next()
-        })
-    } catch (error) {
-        console.log(error.message)
+    if(req.cookies.token) {
+        if(process.env.TOKEN){
+            try {
+                jwt.verify(req.cookies.token, process.env.TOKEN, (err, data) => {
+                    if (err) console.log(err)
+                    req.user = data
+                    next()
+                })
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+    } else{
+        req.user = 'unsigned'
+        next()
     }
 }
 

@@ -32,7 +32,7 @@
             <div class="ml-auto max-lg:mt-4">
       
               <ul class='flex items-center'>
-                <li class='max-sm:hidden flex text-[15px] max-lg:py-2 px-3 font-medium text-[#333] cursor-pointer'>
+                <li onclick="window.location.href='/sellershub'" class='max-sm:hidden flex text-[15px] max-lg:py-2 px-3 font-medium text-[#333] cursor-pointer'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" class="mr-2" viewBox="0 0 24 24">
                     <g data-name="Layer 2">
                       <path
@@ -46,7 +46,8 @@
                         data-original="#000000" />
                     </g>
                   </svg>
-                  Stores and Services
+                  
+                  Become a Seller!
                 </li>
                 <li class='max-sm:hidden flex text-[15px] max-lg:py-2 px-3 font-medium text-[#333] cursor-pointer'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" class="mr-2" viewBox="0 0 512 511">
@@ -68,14 +69,17 @@
                   </span>
                 </li>
                 <li class='flex text-[15px] max-lg:py-2 px-3 hover:text-[#007bff] hover:fill-[#007bff]'>
-                 <% if(user) {%>
-                  <button
-                  class='px-4 py-2 text-sm rounded font-semibold text-[#333] bg-transparent'>Hello, <%=user.username%></button>
-                <% } else { %>
-                  <button onclick="window.location.href='/access'"
-                  class='px-4 py-2 text-sm rounded font-semibold text-[#333] border-2 border-[#333] bg-transparent'>Sign
-                  In</button>
-                <% } %>
+                  <% if(user) { %>
+                    <% if(user === 'unsigned') {%>
+                      <button onclick="window.location.href='/access'"
+                      class='px-4 py-2 text-sm rounded font-semibold text-[#333] border-2 border-[#333] bg-transparent'>Sign
+                      In</button>
+                    <% } else { %>
+                      <button
+                      class='px-4 py-2 text-sm rounded font-semibold text-[#333] bg-transparent'>Hello, <%=user.username%></button>
+                    <% } %>
+                  <% } %>
+               
                 </li>
                 <li id="toggleOpen" class='lg:hidden'>
                   <button>

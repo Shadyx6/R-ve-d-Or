@@ -31,9 +31,9 @@ const prodModel = mongoose.Schema({
         type: Array,
         required: true
     },
-    admin: {
+    seller: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'admin'
+        ref: 'seller'
     }
 })
 
