@@ -54,25 +54,51 @@ router.get('/add', isLoggedIn, isSeller, (req,res) => {
     res.render('addProducts', {user})
 })
 
-router.post('/push', async (req,res) => {
-   let {title, images, description, price, category} = req.body
-   if (!title || !images || !description || !price || !category) {
-    res.send('please enter product details')
+router.post('/push', isLoggedIn, isSeller, async (req,res) => {
+   let {title, mainImage, image2, image3, description, price, gender, category, color, tags, image4, image5} = req.body
+   console.log(req.body)
+   if (!title || !mainImage || !image2 || !image3 || !description || !price || !gender || !category || !color) {
+    return res.send('please enter product details')
    }
    else{
     try {
         let product = await productsModel.create({
             title,
-            images,
+            mainImage,
+            image2,
+            image3,
             description,
+            seller: req.user.userId,
             price,
-            category
+            gender,
+            category,
+            color,
+            tags,
+            image4,
+            image5
         })
-        res.send(product)
+        let user = await userModel.findOne({username: req.user.username})
+        user.products.push(product)
+        await user.save()
+        res.send(`product added succesfully ${user}`)
     } catch (error) {
         console.log(error.message)
     } 
    }
+})
+
+router.get('/products', (req,res) => {
+    res.render('product', {user: 'unsigned'})
+})
+
+router.get('/products/:id', async (req,res) => {
+    let product = await productsModel.findOne({_id: req.params.id})
+    console.log(product)
+    if(req.user !== 'unsigned'){
+        res.render('product', {user: req.user, product})
+    } else{
+        res.render('product', {user: 'unsigned', product})
+    }
 })
 
 module.exports = router

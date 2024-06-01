@@ -9,7 +9,8 @@ const productModel = require('../models/product-model')
 
 router.get('/', isLoggedIn, async function (req, res) {
     let error = req.flash('error')
-    let feat = await productModel.find({category: 'men shirt'})
+    let feat = await productModel.find({tags: 'featured'})
+    console.log(feat)
    if (req.user && req.user !== 'unsigned') {
     res.render('index', {user: req.user, feat, error})
    } else {

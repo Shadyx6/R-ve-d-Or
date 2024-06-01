@@ -23,10 +23,10 @@
           <% feat.forEach((product) => { %> 
             <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex flex-col shadow-lg justify-end items-end">
               <div class="h-full w-full">
-                <img class="h-full w-full mt-8" src="<%= product.images%>" alt="">
+                <img onclick="window.location.href='/products/<%=product._id%>'" class="h-full w-full object-cover mt-8" src="<%= product.mainImage %>" alt="">
               </div>
               <div class="title min-h-12 w-full bg-white flex items-center justify-center">
-                <h2 class="text-center "> <%= product.title %> </h2>
+                <h2  class="text-center "> <%= product.title %> </h2>
               </div>
             </div>
          <% }) %>

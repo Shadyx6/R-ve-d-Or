@@ -1,28 +1,29 @@
+<%- include('./partials/Header.ejs') %>
 <div class="font-sans">
     <div class="grid items-start grid-cols-1 lg:grid-cols-3">
       <div class="col-span-2 grid grid-cols-2 lg:sticky top-0">
         <div class="columns-2 gap-0">
           <div>
-            <img src="https://readymadeui.com/images/product6.webp" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
+            <img src="<%= product.mainImage %>" alt="Product main" class="w-full h-full object-cover object-top shadow-md" />
           </div>
           <div>
-            <img src="https://readymadeui.com/images/product3.webp" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
+            <img src="<%=product.image2 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
           </div>
           <div>
-            <img src="https://readymadeui.com/images/product5.webp" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
+            <img src="<%=product.image3 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
           </div>
           <div>
-            <img src="https://readymadeui.com/images/product2.webp" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
+            <img src="<%=product.image4 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
           </div>
         </div>
         <div>
-          <img src="https://readymadeui.com/images/product6.webp" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
+          <img src="<%=product.image5 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md" />
         </div>
       </div>
 
       <div class="px-10 py-6 max-lg:max-w-2xl">
         <div>
-          <h2 class="text-2xl font-extrabold text-gray-800">Adjective Attire | T-shirt</h2>
+          <h2 class="text-2xl font-extrabold text-gray-800"><%= product.title%></h2>
           <p class="text-sm text-gray-400 mt-2">Well-Versed Commerce</p>
         </div>
 
@@ -85,7 +86,7 @@
         <div class="mt-8">
           <div>
             <h3 class="text-lg font-bold text-gray-800">Product Description</h3>
-            <p class="text-sm text-gray-800 mt-4">Elevate your casual style with our premium men's t-shirt. Crafted for comfort and designed with a modern fit, this versatile shirt is an essential addition to your wardrobe. The soft and breathable fabric ensures all-day comfort, making it perfect for everyday wear. Its classic crew neck and short sleeves offer a timeless look.</p>
+            <p class="text-sm text-gray-800 mt-4"><%= product.description %></p>
           </div>
 
           <ul class="space-y-3 list-disc mt-4 pl-4 text-sm text-gray-800">

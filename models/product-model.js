@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const prodModel = mongoose.Schema({
-    images: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true
@@ -13,28 +9,56 @@ const prodModel = mongoose.Schema({
         type: Number,
         required: true
     },
+    mainImage: {
+        type: String,
+        required: true
+    },
+    image2: {
+        type: String,
+        required: true
+    },
+    image3 : {
+        type: String,
+        required: true
+    },
+    image4: {
+        type: String,
+    },
+    image5: {
+        type: String,
+    },
     description: {
         type: String,
-        required: true
     },
     size:{
-        type: String
+        type: String,
+        enum: ['S', 'M', 'L', 'XL', 'XXL']
     },
     discount: String,
-    bgColor: String,
-    panelColor: String,
+    gender: {
+        type: String,
+        enum: ['men', 'women'],
+        required: true
+    },
     textColor: String,
     color: {
-        type: String,
+        type: [String],
     },
-    category: {
-        type: Array,
-        required: true
+    category:{
+        type: [String]
+    },
+    tags: {
+        type: [String]
+    },
+    isApproved: {
+        type: Boolean,
+        default: true
     },
     seller: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'seller'
+        ref: 'user'
     }
-})
+    
+}, {timestamps: true})
 
-module.exports = mongoose.model('products', prodModel)
+module.exports = mongoose.model('product', prodModel)

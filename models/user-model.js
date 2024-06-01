@@ -28,7 +28,11 @@ const userModel = mongoose.Schema({
    isSeller: {
       type: Boolean,
       default: false
-   }
-})
+   },
+   products: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'product'
+   }]
+}, {timestamps: true})
 
 module.exports = mongoose.model('user', userModel)
