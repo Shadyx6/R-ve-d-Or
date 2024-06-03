@@ -11,12 +11,33 @@
     font-family: 'bebas';
     src: url(../fonts/bebas.woff2);
 }
+@font-face {
+    font-family: 'oswald';
+    src: url(../fonts/oswald.woff2);
+}
+html,body{
+    width: 100vw;
+    overflow-x: hidden !important;
+    
+}
+.custom-scrollbar {
+    overflow-x: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    display: none;
+}
 .topmost h1{
     font-family: 'rock';
 }
 .top h1{
     font-family: 'main';
     
+}
+.p-17{
+    padding-left: 4.5rem !important;;
 }
 .page2 h1, .page3 button{
     font-family: 'main';
@@ -58,4 +79,7 @@ color: #DE5D83;
 }
 .bebas{
     font-family: bebas !important;
+}
+.oswald{
+    font-family: oswald !important;
 }
