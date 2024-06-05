@@ -1,20 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const userModel = require('../models/user-model');
+const productsModel = require('../models/product-model');
+
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const debug = require('debug')('development:routes')
 const isLoggedIn = require('../middlewares/auth')
 const productModel = require('../models/product-model')
+require('dotenv').config()
+
 
 router.get('/', isLoggedIn, async function (req, res) {
     let error = req.flash('error')
     let feat = await productModel.find({tags: 'featured'})
-   if (req.user && req.user !== 'unsigned') {
-    res.render('index', {user: req.user, feat, error})
-   } else {
-    res.render('index', {user: 'unsigned', feat, error})
-   }
+    let trendy = await productModel.find({tags: 'trend'})
+    res.render('index', {user: req.user, feat, error, trendy})
+   
 })
 router.get('/access', function (req, res) {
     let registerError = req.flash('registerError')
@@ -43,7 +45,7 @@ router.post('/register', async (req, res) => {
                         username,
                         password: hash
                     })
-                    let token = jwt.sign({ username, userId: user._id }, process.env.TOKEN)
+                    let token = jwt.sign({ username, userId: user._id, isSeller: user.isSeller }, process.env.TOKEN)
                     res.cookie('token', token)
                     res.redirect('/')
                 } catch (error) {
@@ -68,13 +70,17 @@ router.post('/login', async (req, res) => {
     }
        
     try {
+        if (!process.env.TOKEN) {
+            req.flash('registerError', 'Token missing')
+            return res.send('bring token')
+            }
         bcrypt.compare(password, user.password, (err, result) => {
             if (!result) {
                 req.flash('loginError','something went wrong')
                 return res.redirect('/access')
             }
             if (result) {
-                let token = jwt.sign({ username: user.username, userId: user._id }, process.env.TOKEN)
+                let token = jwt.sign({ username: user.username, userId: user._id, isSeller: user.isSeller }, process.env.TOKEN)
                 res.cookie('token', token)
                 res.redirect('/')
             }
@@ -89,5 +95,22 @@ router.get('/logout', (req, res) => {
     res.clearCookie('token')
     req.user = 'unsigned'
     res.redirect('/')
+})
+router.get('/products', (req,res) => {
+    res.render('product', {user: 'unsigned'})
+})
+
+router.get('/products/:id', isLoggedIn, async (req,res) => {
+    let product = await productsModel.findOne({_id: req.params.id})
+    res.render('product', {product: product, user: req.user})
+})
+router.get('/clothings/:category', isLoggedIn, async (req,res) => {
+    let selectedProducts = await productsModel.find({category: req.params.category, isApproved: true})
+    res.render('categorized', {user: req.user,selectedProducts, category: req.params.category})
+})
+
+router.get('/fits/:gender', isLoggedIn, async (req,res) => {
+    let selectedProducts = await productsModel.find({gender: req.params.gender, isApproved: true})
+    res.render('categorized', {user: req.user, selectedProducts, category: req.params.gender})
 })
 module.exports = router;
