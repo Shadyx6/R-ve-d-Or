@@ -113,4 +113,10 @@ router.get('/fits/:gender', isLoggedIn, async (req,res) => {
     let selectedProducts = await productsModel.find({gender: req.params.gender, isApproved: true})
     res.render('categorized', {user: req.user, selectedProducts, category: req.params.gender})
 })
+
+router.get('/login', (req,res) => {
+    let loginError = req.flash('loginError')
+    res.render('login', {loginError})
+})
+
 module.exports = router;

@@ -3,6 +3,10 @@
     font-family: 'main';
     src: url(../fonts/oswald.woff2);
 }
+html,body{
+    width: 100vw;
+    overflow-x: hidden !important;
+}
 .container h1,p,input, button{
     font-family: 'main';
   
@@ -64,3 +68,18 @@
         opacity: 0;
     }
 }
+@media screen and (max-width: 1024px) {
+    .cart{
+        z-index: 1;
+        scale: 0.6;
+    }
+  }
+  @media screen and (max-width: 324px) {
+    .cart{
+        z-index: 1;
+        scale: 0.4;
+        top: -9% !important;
+        left: -8% !important;
+    }
+  }
+  

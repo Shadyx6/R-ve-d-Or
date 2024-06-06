@@ -35,6 +35,7 @@ app.post('/sellersign', sellerRouter)
 app.get('/products/:id', indexRouter)
 app.get('/clothings/:category', indexRouter)
 app.get('/fits/:gender', indexRouter)
+app.get('/login/', indexRouter)
 
 app.listen(port, () => {
     console.log(`server is running on http://localhost:${port}`)

@@ -14,10 +14,10 @@
   </style>
 </head>
 <body>
-   <div class="wrapper w-screen overflow-x-hiddden bg-[#FFFFF0]">
+   <div class="wrapper w-screen relative overflow-x-hiddden bg-[#FFFFF0]">
     <div class="page h-screen flex lg:flex-row flex-col">
-       <div class="left lg:w-1/2 w-full h-full flex-col flex ">
-       <h1 class=" logo flex lg:absolute text-5xl mt-8 ml-4 font-sans">
+       <div class="left lg:w-1/2 w-full h-full flex-col flex max-lg:px-2">
+       <h1 class=" logo flex absolute text-5xl mt-8 ml-4 font-sans">
         <span>R</span>
         <span>ê</span>
         <span>v</span>
@@ -27,7 +27,7 @@
         <span class="text-yellow-400">O</span>
        <span>r</span>
     </h1> 
-        <section class="lg:h-screen h-fit lg:w-96 items-center w-fit py-8 px- bg-pink-300 lg:ml-60 relative ">
+        <section class="lg:h-screen max-lg:mt-36 max-lg:ml-0 h-fit lg:w-96 max-lg:rounded justify-items-center w-[95vw] py-8 bg-pink-300 lg:ml-60 relative">
             <div class="container lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 flex justify-center flex-col items-center gap-2 font-serif">
                 <div class="ups flex flex-col items-center justify-center"><h1 class=" text-5xl">Lets <span class="text-blue-500">Begin</span> </h1>
                 <p class="">Create your account now!</p>
@@ -42,7 +42,7 @@
                         <p class="text-red-500 font-medium"><%= registerError[0] %></p>
                     <% } %>
                     <p class="mt-4 lg:hidden text-blue-800">Already a user? <a href="/login">Login here</a></p>
-                    <button type="submit" name="submit" class="h-fit mt-0 lg:mt-4 w-fit bg-blue-500 text-white py-1 px-6 rounded-lg hover:shadow-black-400/50 hover:shadow-lg hover:scale-125 transition-all ease-linear duration-100">Get Started</button>
+                    <button type="submit" name="submit" class="h-fit mt-0 lg:mt-4 w-[90%] bg-blue-500 text-white py-2 px-6 rounded-lg hover:shadow-black-400/50 hover:shadow-lg hover:scale-125 transition-all ease-linear duration-100">Get Started</button>
                 </form>
             </div>
             </div>
@@ -74,12 +74,14 @@
             </form>
             
         </div>
-        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
-
-    <dotlottie-player class="absolute cart left-[5%] top-[100%]" src="https://lottie.host/9e339971-8d89-443f-86b5-01c2d4b54897/rB5kN0ac9C.json" background="transparent" speed="1" style="width: 350px; height: 350px;" loop autoplay></dotlottie-player>
+       
         </div>
        </div>
     </div>
+     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+    <dotlottie-player class="absolute cart max-lg:scale-50 -top-[11%] left-[5%] lg:left-[42%] lg:top-[45%]" src="https://lottie.host/9e339971-8d89-443f-86b5-01c2d4b54897/rB5kN0ac9C.json" background="transparent" speed="1" style="width: 350px; height: 350px;" loop autoplay></dotlottie-player>
    </div>
+   
 </body>
 </html>
