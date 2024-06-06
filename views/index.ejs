@@ -1,6 +1,6 @@
 <%- include('partials/Header.ejs') %>
-  <div class="wrapper bg-[#FFFFF0] h-full w-screen">
-    <div class="page1 h-[107vh] w-full">
+  <div class="wrapper bg-[#FFFFF0] overflow-x-hidden h-full w-screen">
+    <div class="page1 h-[110vh] w-full">
       <section class="w-full topmost bg-gradient-to-r from-purple-100 to-pink-100 h-1/2 flex max-sm:flex-col  p-5 px-8 gap-3">
         <div class="w-3/4 h-full bg-fuchsia-200 rounded-xl">
           <h1 class="text-white tracking-widest max-sm:text-base text-4xl m-6">
@@ -20,10 +20,10 @@
                 </div>
         </div>
         <div class="w-screen s-container max-xl:overflow-x-scroll custom-scrollbar ease-linear duration-300">
-        <div class="h-fit w-fit max-sm:p-2 max-sm:px-6 flex gap-6 p-6 overflow-x-hidden 2xl:px-16 2xl:ml-2">
+        <div class="h-fit w-fit max-sm:p-2 max-sm:px-6 flex gap-6 p-6 overflow-x-hidden xl:px-16 2xl:ml-2">
           <% feat.forEach((product) => { %> 
-            <div class="cards h-64 w-64 bg-rose-200 overflow-hidden rounded-xl flex flex-col max-xl:shadow-md 2xl:shadow-lg justify-end items-end">
-              <div class="h-64 w-64 relative">
+            <div class="cards edge h-72 w-64 overflow-hidden rounded-xl flex flex-col max-xl:shadow-md 2xl:shadow-lg justify-end items-end">
+              <div class="h-full w-full relative">
                 <img onclick="window.location.href='/products/<%=product._id%>'" class="h-full opacity-1 w-full ease-linear duration-200 object-cover mt-8" src="<%= product.mainImage %>" alt="">
                 <img onclick="window.location.href='/products/<%=product._id%>'" class="h-full opacity-0 absolute top-0 left-0 w-full object-cover mt-8 ease-linear duration-200 image2" src="<%= product.image2 %>" alt="">
               </div>
@@ -43,24 +43,24 @@
           Trending <span class="text-[#800020]">Outfits</span>
         </h1>
 
-        <div class="mt-10 ml-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 max-sm:mt-0 max-sm:ml-0 max-sm:py-6">
+        <div class="mt-10 ml-6 grid grid-cols-1 gap-x-2 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 max-sm:mt-0 max-sm:ml-0 max-sm:py-6">
           <% trendy.forEach((fit) => { %>
-            <div class="group relative h-[80%] w-[80%] max-sm:mx-auto">
-              <div
+            <div class="group relative h-[80%] w-[85%] max-sm:mx-auto">
+              <div onclick="window.location.href='products/<%= fit._id%>'"
                 class="aspect-h-1 aspect-w-1 w overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <img src="<%=fit.mainImage%>"
-                  alt="<%=fit.Image%>"
+                  alt="outfit image"
                   class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
               </div>
               <div class="mt-4 flex justify-between">
                 <div>
-                  <h3 class="text-xl text-gray-700">
-                    <a href="#">
-                      <span aria-hidden="true" class="absolute inset-0"></span>
+                  <h3 class="text-lg text-gray-700 lg:h-28 xl:h-16 xl:w-56 ">
+                    <a href="/products/<%=fit._id%>">
+                      <span aria-hidden="true" class="absolute "></span>
                       <%= fit.title%>
                     </a>
                   </h3>
-                  <p><% if (fit.color && Array.isArray(fit.color)) { %>
+                  <p class=""><% if (fit.color && Array.isArray(fit.color)) { %>
                     <% for (let j = 0; j < fit.color.length; j++) { %>
                       <span class="color-dot mt-4 inline-block h-4 w-4 rounded-full" style="background-color: <%= fit.color[j] %>; margin-right: 4px;"></span>
                     <% } %>

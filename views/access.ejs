@@ -14,10 +14,10 @@
   </style>
 </head>
 <body>
-   <div class="wrapper  bg-[#FFFFF0]">
-    <div class="page flex">
-       <div class="left w-1/2 h-full">
-       <h1 class=" logo flex absolute text-5xl mt-8 ml-4 font-sans">
+   <div class="wrapper w-screen overflow-x-hiddden bg-[#FFFFF0]">
+    <div class="page h-screen flex lg:flex-row flex-col">
+       <div class="left lg:w-1/2 w-full h-full flex-col flex ">
+       <h1 class=" logo flex lg:absolute text-5xl mt-8 ml-4 font-sans">
         <span>R</span>
         <span>ê</span>
         <span>v</span>
@@ -27,8 +27,8 @@
         <span class="text-yellow-400">O</span>
        <span>r</span>
     </h1> 
-        <section class="h-screen w-96 bg-pink-300 ml-60 relative ">
-            <div class="container absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center flex-col items-center gap-2 font-serif">
+        <section class="lg:h-screen h-fit lg:w-96 items-center w-fit py-8 px- bg-pink-300 lg:ml-60 relative ">
+            <div class="container lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 flex justify-center flex-col items-center gap-2 font-serif">
                 <div class="ups flex flex-col items-center justify-center"><h1 class=" text-5xl">Lets <span class="text-blue-500">Begin</span> </h1>
                 <p class="">Create your account now!</p>
             </div>
@@ -41,7 +41,8 @@
                     <%if(registerError && registerError.length > 0) { %>
                         <p class="text-red-500 font-medium"><%= registerError[0] %></p>
                     <% } %>
-                    <button type="submit" name="submit" class="h-fit mt-4 w-fit bg-blue-500 text-white py-1 px-6 rounded-lg hover:shadow-black-400/50 hover:shadow-lg hover:scale-125 transition-all ease-linear duration-100">Get Started</button>
+                    <p class="mt-4 lg:hidden text-blue-800">Already a user? <a href="/login">Login here</a></p>
+                    <button type="submit" name="submit" class="h-fit mt-0 lg:mt-4 w-fit bg-blue-500 text-white py-1 px-6 rounded-lg hover:shadow-black-400/50 hover:shadow-lg hover:scale-125 transition-all ease-linear duration-100">Get Started</button>
                 </form>
             </div>
             </div>
@@ -55,7 +56,7 @@
             </div>
         <% } %>        
        </div>
-       <div class="right w-1/2 h-screen relative">
+       <div class="right w-1/2 h-screen relative lg:block hidden">
         <div class="container absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center flex-col items-center gap-2 font-serif">
             <div class="ups flex flex-col items-center justify-center">
             <h1 class="text-4xl">Already a <span class="text-blue-500">user?</span></h1>
