@@ -92,7 +92,9 @@
           SHOP NOW!
         </button>
       </section>
-      <section class="w-full md:w-3/5 h-1/2 md:h-full overflow-hidden flex justify-center items-center hover:scale-105 ease-in duration-150">
+      <section class="w-full md:w-3/5 h-1/2 md:h-full diva-container overflow-hidden flex justify-center items-center hover:scale-105 ease-in duration-150 relative group">
+        <div class="overlay h-full w-full opacity-0 top-full group-hover:top-0 duration-200 left-0 absolute"></div>
+        <button class="absolute divabtn hover:top-1/2 top-full left-1/2 bg-pink-500 opacity-0 -translate-x-1/2 -translate-y-1/2 rounded-lg py-1 px-4 lg:text-2xl text-white text-center whitespace-nowrap">Pick your fit now!</button>
         <section class="w-full h-full bg-red-200">
           <img class="w-full h-full object-cover object-top" src="/media/bella.jpg" alt="" />
         </section>
@@ -101,9 +103,13 @@
     
     <div class="page4 h-screen w-full flex flex-col md:flex-row relative">
       <section class="h-1/2 md:h-full w-full md:w-1/2 flex items-center justify-center relative">
-        <h1 class="absolute whitespace-nowrap top-[58%] md:top-[53%] left-[6%] md:left-[6%] transform -translate-x-1/2 -translate-y-1/2 md:-translate-y-1/2 -rotate-90 text-xl md:text-4xl z-50">EXPLORE OUR <span class="text-[#000080]">MEN'S</span> GENRE</h1>
-        <div class="md:h-3/4 w-3/4 h-4/5 mt-12  bg-black">
-          <img class="h-full w-full object-cover" src="https://i.pinimg.com/originals/7e/5f/ee/7e5feeacfe0e286c961b14c8cf516f02.jpg" alt="">
+        <div class="mens-container w-[90%] h-[90%] relative mx-auto mt-10 group">
+          <h1 class="absolute whitespace-nowrap top-[58%] md:top-[50%] left-[6%] md:left-[3%] transform -translate-x-1/2 -translate-y-1/2 md:-translate-y-1/2 -rotate-90 transition-transform duration-500 ease-in-out group-hover:rotate-0  md:text-2xl group-hover:max-md:ml-4 group-hover:2xl:ml-2 group-hover:xl:ml-4 group-hover:lg:ml-6 group-hover:md:ml-8 2xl:text-4xl xl:text-3xl  z-50 mens-text">EXPLORE OUR <span class="text-[#000080]">MEN'S</span> GENRE</h1>
+          <div class="md:h-[85%] w-3/4 h-4/5 m-auto md:ml-16 mt-12 bg-black relative overflow-hidden">
+              <div class="overlay2 h-full w-full group-hover:top-0 opacity-0 duration-500 top-full left-0 absolute"></div>
+              <button class="absolute mensbtn group-hover:top-[68%]  group-hover:md:top-[60%] top-full left-1/2 opacity-0 -translate-x-1/2 -translate-y-1/2 rounded-lg py-1 px-2 md:px-4 text-base md:text-2xl text-white text-center whitespace-nowrap">Take Me!</button>
+              <img class="h-full w-full object-cover" src="https://i.pinimg.com/originals/7e/5f/ee/7e5feeacfe0e286c961b14c8cf516f02.jpg" alt="">
+          </div>
         </div>
       </section>
       <section class="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-center items-center gap-6 p-4">  
@@ -159,6 +165,13 @@
       card.addEventListener('mouseleave', (e) => {
         image2.style.opacity = 0
       })
+    })
+    const container = document.querySelector('.mens-container')
+    container.addEventListener('mouseover', (e) => {
+      document.querySelector('.mens-text').style.color = 'white'
+    })
+    container.addEventListener('mouseout', (e) => {
+      document.querySelector('.mens-text').style.color = 'black'
     })
   </script>
   <%- include('partials/Footer.ejs') %>
