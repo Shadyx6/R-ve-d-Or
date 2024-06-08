@@ -130,6 +130,11 @@ color: #DE5D83;
     transition: all cubic-bezier(0.19, 1, 0.22, 1) 3s;
     opacity: 0.8 !important;
   }
+  .link { 
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); 
+  }
+  
+  
  @keyframes mens {
     0%{
         left: 0;
@@ -159,5 +164,10 @@ color: #DE5D83;
    .mens-text{
     font-size: .8rem !important;
    }
+   .topmost .icapable {
+    transform: scale(0.7) !important;
+    left: 60%;
+   }
+  
   }
   

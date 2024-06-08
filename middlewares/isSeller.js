@@ -1,7 +1,7 @@
 const userModel = require('../models/user-model')
 async function isSeller(req, res, next) {
     if (req.user === 'unsigned') {
-        req.flash('sellerError', 'Please create an account to sell products')
+        req.flash('sellerError', 'Please create a account to sell products')
         return res.redirect('/access')
     }
     else {

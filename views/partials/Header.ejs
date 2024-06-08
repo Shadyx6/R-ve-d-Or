@@ -10,9 +10,11 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   </head>
   <body>
-    <header class="shadow-md font-[sans-serif] tracking-wide relative z-50">
+    <header class="shadow-md font-[sans-serif] tracking-wide relative z-50 nav">
       <section
         class="md:flex lg:items-center relative py-3 lg:px-10 px-4 border-gray-200 border-b bg-[#FFFFF0] lg:min-h-[80px] max-lg:min-h-[60px]"
       >
@@ -27,7 +29,7 @@
           <span>r</span>
         </h1>
 
-        <div class="flex flex-wrap w-full items-center">
+        <div class="flex flex-wrap w-full items-center search">
           <input
             type="text"
             placeholder="Search something..."
@@ -37,7 +39,7 @@
             <ul class="flex items-center">
               <% if(user !== 'unsigned' && user.isSeller == true) { %>
               <li
-                onclick="window.location.href='/productadd'"
+                onclick="window.location.href='/dashboard'"
                 class="max-sm:hidden flex text-[15px] max-lg:py-2 px-3 font-medium text-[#333] cursor-pointer"
               >
                 <svg
@@ -198,7 +200,7 @@
         </button>
 
         <ul
-          class="lg:flex lg:flex-wrap lg:items-center lg:justify-center px-10 py-3 bg-[#333] min-h-[46px] gap-4 max-lg:space-y-4 max-lg:fixed max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50"
+          class="lg:flex lg:flex-wrap list lg:items-center lg:justify-center px-10 py-3 bg-[#333] min-h-[46px] gap-4 max-lg:space-y-4 max-lg:fixed max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50"
         >
           <li class="max-lg:border-b max-lg:py-3 px-3">
             <a

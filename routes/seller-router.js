@@ -50,9 +50,9 @@ router.post('/sellersign', async (req, res) => {
     }
 })
 
-router.get('/productadd', isLoggedIn, isSeller, (req, res) => {
+router.get('/dashboard', isLoggedIn, isSeller, (req, res) => {
     let user = req.user
-    res.render('addProducts', { user })
+    res.render('dashboard', { user })
 })
 
 router.post('/push', isLoggedIn, isSeller, async (req, res) => {
@@ -85,11 +85,18 @@ router.post('/push', isLoggedIn, isSeller, async (req, res) => {
             let user = await userModel.findOne({ username: req.user.username })
             user.products.push(product)
             await user.save()
-            res.send(`product added succesfully ${user}`)
+            res.redirect('/dashboard')
         } catch (error) {
             console.log(error.message)
         }
     }
+})
+
+router.get('/plusproducts', isLoggedIn, isSeller, async (req,res) => {
+    let seller = await userModel.findOne({ username: req.user.username }).populate('products')
+    
+    res.render('plusproducts', {products: seller.products, user: req.user})
+    
 })
 
 module.exports = router

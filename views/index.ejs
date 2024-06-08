@@ -1,11 +1,20 @@
 <%- include('partials/Header.ejs') %>
   <div class="wrapper bg-[#FFFFF0] overflow-x-hidden h-full w-screen">
     <div class="page1 h-[110vh] w-full">
-      <section class="w-full topmost bg-gradient-to-r from-purple-100 to-pink-100 h-1/2 flex max-sm:flex-col  p-5 px-8 gap-3">
-        <div class="w-3/4 h-full bg-fuchsia-200 rounded-xl">
-          <h1 class="text-white tracking-widest max-sm:text-base text-4xl m-6">
-            The most <span class="text-yellow-500">Glamorous</span> <br /><span class="ml-2 text-blue-600">Shirt</span>
+      <section class="w-full topmost bg-gradient-to-r from-purple-100 to-pink-100 h-1/2 flex max-sm:flex-col relative p-5 px-8 gap-3">
+        <button onclick="window.location.href='/products/66643c8ecccf0d60cab23fba'" class="text-white text-xs m-6 icapable link top-[15%] sm:hidden absolute left-[78%] -translate-x-1/2 text-center flex items-center flex-col justify-center bg-pink-800 z-50 py-1 rounded-xl whitespace-nowrap px-2" >Make it yours <span class="text-center text-xs material-symbols-outlined">
+          trending_flat
+          </span></button>
+        <div class="w-3/4 h-full bg-fuchsia-200 rounded-xl relative overflow-hidden glamdiv">
+          <h1 class="text-white glam-text tracking-widest max-sm:text-base text-4xl m-6"> The most <span class="text-yellow-500">Glamorous</span> <br /><span class="ml-2 text-blue-600">Dress</span>
           </h1>
+          <button onclick="window.location.href='/products/66643c8ecccf0d60cab23fba'" class="text-white link text-2xl mx-6 2xl:mt-48 xl:mt-36 sm:text-base lg:mt-32 sm:mt-24 h-fit w-fit py-2 px-5 max-md:absolute text-center flex items-center justify-center gap-1 max-sm:hidden bg-pink-800 z-50 rounded-full  py-1 px-2" >Make it yours <span class="text-center material-symbols-outlined">
+            trending_flat
+            </span></button>
+            <img class="h-[62vh] w-full top-full left-[20%] object-contain opacity-1 glamhover absolute" src="/media/glam.png" alt="">
+            <img class="h-[100vh] w-fit top-[80%] -translate-y-1/2 left-[28%] glam object-contain absolute opacity-1" src="/media/glam-1.png" alt="">
+           
+         
         </div>
         <div class="w-1/2 max-sm:ml-auto h-full bg-cyan-100 rounded-xl"></div>
       </section>
@@ -127,51 +136,4 @@
     
     
   </div>
-  <script>
-    const rightButton = document.querySelector('.s-right');
-    const leftButton = document.querySelector('.s-left');
-    const sContainer = document.querySelector('.s-container');
-    
-    function scrollContent(amount) {
-      let currentScroll = sContainer.scrollLeft;
-      let newScroll = Math.min(Math.max(currentScroll + amount, 0), sContainer.scrollWidth - sContainer.clientWidth);
-      function scrollStep() {
-        currentScroll = Math.min(Math.max(currentScroll, 0), sContainer.scrollWidth - sContainer.clientWidth); 
-        const distance = Math.abs(newScroll - currentScroll);
-    
-       
-        if (distance > 1) {
-          currentScroll += (newScroll - currentScroll) / 10; 
-          sContainer.scrollLeft = currentScroll;
-          requestAnimationFrame(scrollStep);
-        }
-      }
-    
-      scrollStep();
-    }
-    
-    rightButton.addEventListener('click', () => scrollContent(150));
-    leftButton.addEventListener('click', () => scrollContent(-150));
-    
-
-
-
-    const cards = document.querySelectorAll('.cards')
-    cards.forEach((card) => {
-      const image2 = card.querySelector('.image2')
-      card.addEventListener('mouseenter', (e) => {
-        image2.style.opacity = 1
-      })
-      card.addEventListener('mouseleave', (e) => {
-        image2.style.opacity = 0
-      })
-    })
-    const container = document.querySelector('.mens-container')
-    container.addEventListener('mouseover', (e) => {
-      document.querySelector('.mens-text').style.color = 'white'
-    })
-    container.addEventListener('mouseout', (e) => {
-      document.querySelector('.mens-text').style.color = 'black'
-    })
-  </script>
   <%- include('partials/Footer.ejs') %>
