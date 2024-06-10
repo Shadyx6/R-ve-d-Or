@@ -168,6 +168,23 @@ color: #DE5D83;
     transform: scale(0.7) !important;
     left: 60%;
    }
+   .shiftml{
+    font-size: .8rem;
+    margin-left: -8rem !important;
+}
+.link1{
+    transform: scale(.7) !important;
+    margin-left: -9rem !important;
+}
+  }
   
+  @media screen and (min-width: 312px) and (max-width: 412px) {
+    .shiftml {
+      margin-left: -10rem !important;
+    }
+    .link1{
+        transform: scale(.7) !important;
+        margin-left: -10.5rem !important;
+    }
   }
   

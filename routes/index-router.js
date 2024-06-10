@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const debug = require('debug')('development:routes')
 const isLoggedIn = require('../middlewares/auth')
 const productModel = require('../models/product-model')
-require('dotenv').config()
+require('dotenv').config(   )
 
 
 router.get('/', isLoggedIn, async function (req, res) {
