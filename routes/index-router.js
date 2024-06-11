@@ -8,21 +8,21 @@ const jwt = require('jsonwebtoken');
 const debug = require('debug')('development:routes')
 const isLoggedIn = require('../middlewares/auth')
 const productModel = require('../models/product-model')
-require('dotenv').config(   )
+require('dotenv').config()
 
 
 router.get('/', isLoggedIn, async function (req, res) {
     let error = req.flash('error')
-    let feat = await productModel.find({tags: 'featured'})
-    let trendy = await productModel.find({tags: 'trend'})
-    res.render('index', {user: req.user, feat, error, trendy})
-   
+    let feat = await productModel.find({ tags: 'featured' })
+    let trendy = await productModel.find({ tags: 'trend' })
+    res.render('index', { user: req.user, feat, error, trendy })
+
 })
 router.get('/access', function (req, res) {
     let registerError = req.flash('registerError')
     let loginError = req.flash('loginError')
     let sellerError = req.flash('sellerError')
-    res.render('access', {registerError, loginError, sellerError})
+    res.render('access', { registerError, loginError, sellerError })
 })
 
 router.post('/register', async (req, res) => {
@@ -30,12 +30,13 @@ router.post('/register', async (req, res) => {
     let user = await userModel.findOne({ username })
     if (user) {
         req.flash('registerError', 'User already exists')
-        return res.redirect('/access')}
+        return res.redirect('/access')
+    }
     try {
         if (!process.env.TOKEN) {
             req.flash('registerError', 'Token missing')
             return res.send('bring token')
-            }
+        }
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(password, salt, async (err, hash) => {
                 try {
@@ -50,6 +51,7 @@ router.post('/register', async (req, res) => {
                     res.redirect('/')
                 } catch (error) {
                     req.flash('registerError', 'cannot create user')
+                    console.log(error)
                     res.redirect('/access')
                 }
             })
@@ -65,18 +67,18 @@ router.post('/login', async (req, res) => {
     let { email, password } = req.body
     let user = await userModel.findOne({ email })
     if (!user) {
-        req.flash('loginError', 'please register first') 
+        req.flash('loginError', 'please register first')
         return res.redirect('/access')
     }
-       
+
     try {
         if (!process.env.TOKEN) {
             req.flash('registerError', 'Token missing')
             return res.send('bring token')
-            }
+        }
         bcrypt.compare(password, user.password, (err, result) => {
             if (!result) {
-                req.flash('loginError','something went wrong')
+                req.flash('loginError', 'something went wrong')
                 return res.redirect('/access')
             }
             if (result) {
@@ -86,7 +88,7 @@ router.post('/login', async (req, res) => {
             }
         })
     } catch (error) {
-        req.flash('loginError','something went wrong')
+        req.flash('loginError', 'something went wrong')
         res.redirect('/access')
     }
 })
@@ -96,27 +98,63 @@ router.get('/logout', (req, res) => {
     req.user = 'unsigned'
     res.redirect('/')
 })
-router.get('/products', (req,res) => {
-    res.render('product', {user: 'unsigned'})
+router.get('/products', (req, res) => {
+    res.render('product', { user: 'unsigned' })
 })
 
-router.get('/products/:id', isLoggedIn, async (req,res) => {
-    let product = await productsModel.findOne({_id: req.params.id})
-    res.render('product', {product: product, user: req.user})
+router.get('/products/:id', isLoggedIn, async (req, res) => {
+    let product = await productsModel.findOne({ _id: req.params.id })
+    res.render('product', { product: product, user: req.user })
 })
-router.get('/clothings/:category', isLoggedIn, async (req,res) => {
-    let selectedProducts = await productsModel.find({category: req.params.category, isApproved: true})
-    res.render('categorized', {user: req.user,selectedProducts, category: req.params.category})
-})
-
-router.get('/fits/:gender', isLoggedIn, async (req,res) => {
-    let selectedProducts = await productsModel.find({gender: req.params.gender, isApproved: true})
-    res.render('categorized', {user: req.user, selectedProducts, category: req.params.gender})
+router.get('/clothings/:category', isLoggedIn, async (req, res) => {
+    let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true })
+    res.render('categorized', { user: req.user, selectedProducts, category: req.params.category })
 })
 
-router.get('/login', (req,res) => {
+router.get('/fits/:gender', isLoggedIn, async (req, res) => {
+    let selectedProducts = await productsModel.find({ gender: req.params.gender, isApproved: true })
+    res.render('categorized', { user: req.user, selectedProducts, category: req.params.gender })
+})
+
+router.get('/login', (req, res) => {
     let loginError = req.flash('loginError')
-    res.render('login', {loginError})
+    res.render('login', { loginError })
+})
+router.post('/add-to-cart/:id', isLoggedIn, async (req, res) => {
+    let user = await userModel.findOne({ username: req.user.username })
+    let product = await productsModel.findOne({ _id: req.params.id })
+    user.cart.push({ productId: product._id })
+    try {
+        await user.save()
+        res.json({ message: 'products added successfully', user })
+    } catch (error) {
+        console.log(error)
+    }
+
 })
 
+router.get('/cart', isLoggedIn, async (req, res) => {
+    let user = await userModel.findOne({ username: req.user.username }).populate({path: 'cart.productId'})
+    try {
+        res.render('cart', { user: req.user, cart: user.cart })
+    } catch (error) {
+        console.log(error)
+    }
+    
+})
+router.get('/remove-from-cart/:id', isLoggedIn, async (req,res) => {
+    let user = await userModel.findOne({ username: req.user.username })
+    await user.updateOne({ $pull: { cart: {productId: req.params.id}}})
+    try {
+        res.redirect('/cart')
+    } catch (error) {
+        console.log(error)
+    }
+})
+// router.get('/edit-quantity/:id', isLoggedIn, async (req,res) => {
+//     let value = 
+//     let user = await userModel.findOneAndUpdate({ username: req.user.username})
+//     res.send(user)
+    
+// })
 module.exports = router;

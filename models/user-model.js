@@ -19,10 +19,6 @@ const userModel = mongoose.Schema({
       type: String,
       required: true
    },
-   cart: {
-    type: Array,
-    default: []
-   },
    contact: Number,
    picture: String,
    isSeller: {
@@ -32,7 +28,42 @@ const userModel = mongoose.Schema({
    products: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'product'
-   }]
+   }],
+   shippingAddress: {
+      type: {
+        address: String,
+        city: String,
+        postalCode: String,
+        country: String,
+      },
+      
+    },
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product', 
+      },
+    ],
+    cart: {
+      type: [{
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'product',
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          min: 1,
+          default: 1,
+        },
+      }],
+    },
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order', 
+      },
+    ],
 }, {timestamps: true})
 
 module.exports = mongoose.model('user', userModel)

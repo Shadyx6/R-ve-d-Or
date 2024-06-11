@@ -85,7 +85,7 @@ function animations() {
         end: 'bottom center',
       }
     })
-  
+
   }
   function timelineAnimate() {
     let tl = gsap.timeline()
@@ -182,6 +182,28 @@ function animations() {
   timelineAnimate()
   firstPageAnimate()
 }
+function addToCart() {
+  const addBtn = document.querySelectorAll('.add-btn');
+  addBtn.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      let id = btn.getAttribute('data-fitId')
+      fetch(`add-to-cart/${id}`, {
+        method: 'POST'
+      }).then((response) => response.json())
+      .then((data => {
+        btn.textContent = 'added to cart'
+      })).catch((error) => console.log(error.message))
+    })
+  })
+}
+addToCart()
+
+function editQuantity() {
+  const editBtn = document.querySelector('.')
+}
+
+
+
 animations()
 jsTouch()
 swiperAnimation()

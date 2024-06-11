@@ -62,9 +62,9 @@
         <div class="mt-10 ml-6 grid grid-cols-1 gap-x-2 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 max-sm:mt-0 max-sm:ml-0 max-sm:py-6">
           <% trendy.forEach((fit) => { %>
             <div class="group relative h-[80%] w-[85%] max-sm:mx-auto scroll-card">
-              <div onclick="window.location.href='products/<%= fit._id%>'"
+              <div
                 class="aspect-h-1 aspect-w-1 w overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                <img src="<%=fit.mainImage%>"
+                <img onclick="window.location.href='products/<%= fit._id%>'" src="<%=fit.mainImage%>"
                   alt="outfit image"
                   class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
               </div>
@@ -85,7 +85,7 @@
                 <p class="text-2xl font-medium text-gray-900">$<%= fit.price%></p>
               </div>
               <div class="box h-12 max-sm:h-10 w-full bg-black flex items-center mt-2">
-                <button class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center">
+                <button data-fitId="<%=fit._id%>" class="w-full h-full bg-slate-500 text-white flex gap-2 items-center justify-center add-btn">
                   <i class="ri-shopping-cart-2-line"></i> Add to cart
                 </button>
               </div>

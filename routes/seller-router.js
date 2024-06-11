@@ -94,7 +94,6 @@ router.post('/push', isLoggedIn, isSeller, async (req, res) => {
 
 router.get('/plusproducts', isLoggedIn, isSeller, async (req,res) => {
     let seller = await userModel.findOne({ username: req.user.username }).populate('products')
-    
     res.render('plusproducts', {products: seller.products, user: req.user})
     
 })
