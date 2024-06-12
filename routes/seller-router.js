@@ -18,7 +18,7 @@ router.get('/sellershub', isLoggedIn, (req, res) => {
         res.render('sellersignup', { error, sellerError })
     }
 })
-router.post('/sellersign', async (req, res) => {
+router.post('/sellersign',isLoggedIn, async (req, res) => {
     let { email, password } = req.body
     let user = await userModel.findOne({ email })
     if (!user) {
@@ -30,7 +30,6 @@ router.post('/sellersign', async (req, res) => {
         return res.redirect('/sellershub')
     }
     if (user && user.isSeller === false) {
-        console.log('here')
         try {
             bcrypt.compare(password, user.password, async (err, result) => {
                 if (err) {

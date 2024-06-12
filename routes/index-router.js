@@ -107,13 +107,28 @@ router.get('/products/:id', isLoggedIn, async (req, res) => {
     res.render('product', { product: product, user: req.user })
 })
 router.get('/clothings/:category', isLoggedIn, async (req, res) => {
-    let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true })
-    res.render('categorized', { user: req.user, selectedProducts, category: req.params.category })
+    let category = req.params.category.toLowerCase();
+    displayCategory = category.charAt(0).toUpperCase() + category.slice(1);
+        let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true })
+        if(req.query.gender === 'all'){
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false })
+        } if(req.query.gender === 'men'){
+           let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true, gender: 'men' })
+           return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false })
+        } if(req.query.gender === 'women'){
+            let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true, gender: 'women' })
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false })
+        } else{
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false })
+        }
+       
 })
 
 router.get('/fits/:gender', isLoggedIn, async (req, res) => {
     let selectedProducts = await productsModel.find({ gender: req.params.gender, isApproved: true })
-    res.render('categorized', { user: req.user, selectedProducts, category: req.params.gender })
+    let gender = req.params.gender;
+    gender = gender.charAt(0).toUpperCase() + gender.slice(1);
+    res.render('categorized', { user: req.user, selectedProducts, gender, gen: true, cat: false })
 })
 
 router.get('/login', (req, res) => {
@@ -134,27 +149,58 @@ router.post('/add-to-cart/:id', isLoggedIn, async (req, res) => {
 })
 
 router.get('/cart', isLoggedIn, async (req, res) => {
-    let user = await userModel.findOne({ username: req.user.username }).populate({path: 'cart.productId'})
+    let error = req.flash('error')
+    let user = await userModel.findOne({ username: req.user.username }).populate({ path: 'cart.productId' })
     try {
-        res.render('cart', { user: req.user, cart: user.cart })
+        res.render('cart', { user: req.user, cart: user.cart, error })
     } catch (error) {
         console.log(error)
     }
-    
+
 })
-router.get('/remove-from-cart/:id', isLoggedIn, async (req,res) => {
+router.get('/remove-from-cart/:id', isLoggedIn, async (req, res) => {
     let user = await userModel.findOne({ username: req.user.username })
-    await user.updateOne({ $pull: { cart: {productId: req.params.id}}})
+    await user.updateOne({ $pull: { cart: { productId: req.params.id } } })
     try {
         res.redirect('/cart')
     } catch (error) {
         console.log(error)
     }
 })
-// router.get('/edit-quantity/:id', isLoggedIn, async (req,res) => {
-//     let value = 
-//     let user = await userModel.findOneAndUpdate({ username: req.user.username})
-//     res.send(user)
-    
-// })
+router.get('/sub-quantity/:id', isLoggedIn, async (req, res) => {
+    let user = await userModel.findOne({ username: req.user.username })
+    let product = user.cart.find(product => product._id == req.params.id)
+    if(product && product.quantity > 1) {
+        product.quantity -= 1
+    } else{
+        product.quantity = 1
+        req.flash('error', 'You must have at least one product to purchase')
+        return res.redirect('/cart')
+    }
+    try {
+        await user.save()
+        res.redirect('/cart')
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+router.get('/add-quantity/:id', isLoggedIn, async (req, res) => {
+    let user = await userModel.findOne({ username: req.user.username })
+    let product = user.cart.find(product => product._id == req.params.id)
+    if(product && product.quantity < 100) {
+        product.quantity += 1
+    } else{
+        product.quantity = 100
+        req.flash('error', 'cannot order more than 100 products')
+        return res.redirect('/cart')
+    }
+    try {
+        await user.save()
+        res.redirect('/cart')
+    } catch (error) {
+        console.log(error)
+    }
+
+})
 module.exports = router;

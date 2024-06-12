@@ -2,17 +2,34 @@
 
 <div class="bg-white">
   <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+    <% if (cat){ %>
+
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Pick your favorite <%= displayCategory%> <i class="ri-shopping-cart-2-line"></i> </h2>     
+   <% } %>
+   <%if (gen) {%>
+    <%if(gender === 'Men'){%>
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Welcome to <%= gender%>'s section' <i class="ri-men-line"></i> </h2>
+    <%}%>
+    <%if(gender === 'Women'){%>
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Welcome to <%= gender%>'s section' <i class="ri-women-line"></i></h2>
+   <% }%>
+   <%}%>
     
     <!-- Filter Section -->
-    <div class="flex justify-end items-center mt-4">
-      <label for="gender-filter" class="mr-2 text-sm font-medium text-gray-700">Filter by Gender:</label>
-      <select id="gender-filter" name="gender" class="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-        <option value="all">All</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-    </div>
+    <% if (cat) { %>
+      <div class="flex justify-end gap-2 items-center mt-4">
+        <form action="/clothings/<%= category%>" method="get">
+        <label for="gender-filter" class="mr-2 text-sm font-medium text-gray-700">Gender:</label>
+        <select id="gender-filter" name="gender" class="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+          <option value="all">All</option>
+          <option value="men">Men</option>
+          <option value="women">Women</option>
+        </select>
+        <input class="bg-blue-300 ml-2 px-4 py-1 rounded" type="submit" value="filter">
+      </form>
+      </div>
+    <% } %>
+   
     
     <!-- Product Listings -->
     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

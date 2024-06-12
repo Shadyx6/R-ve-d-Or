@@ -40,7 +40,8 @@ app.get('/login', indexRouter)
 app.post('/add-to-cart/:id', indexRouter)
 app.get('/cart', indexRouter)
 app.get('/remove-from-cart/:id', indexRouter)
-app.get('/edit-quantity/:id', indexRouter)
+app.get('/add-quantity/:id', indexRouter)
+app.get('/sub-quantity/:id', indexRouter)
 
 app.listen(port, () => {
     console.log(`server is running on http://localhost:${port}`)
