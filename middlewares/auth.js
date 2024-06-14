@@ -33,7 +33,7 @@ function isLoggedInStrict(req, res, next) {
         }
     } else{
         req.user = 'unsigned'
-        req.flash('sellerError', 'you are not authorized')
+        req.flash('sellerError', 'Please create an account first')
         res.redirect('/access')
     }
 }

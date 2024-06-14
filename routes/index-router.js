@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userModel = require('../models/user-model');
 const productsModel = require('../models/product-model');
+const orderModel = require('../models/order-model');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const debug = require('debug')('development:routes')
@@ -181,12 +182,8 @@ router.post('/add-to-cart/:id', isLoggedIn, async (req, res) => {
 
 })
 
-router.get('/cart', isLoggedIn, async (req, res) => {
+router.get('/cart', isLoggedInStrict, async (req, res) => {
     let error = req.flash('error')
-    if(req.user === 'unsigned'){
-        req.flash('sellerError', 'You need an account to use the cart')
-        return res.redirect('/access')
-    }
     let user = await userModel.findOne({ username: req.user.username }).populate({ path: 'cart.productId' })
     try {
         res.render('cart', { user: req.user, cart: user.cart, error })
@@ -195,7 +192,7 @@ router.get('/cart', isLoggedIn, async (req, res) => {
     }
 
 })
-router.get('/remove-from-cart/:id', isLoggedIn, async (req, res) => {
+router.get('/remove-from-cart/:id', isLoggedInStrict, async (req, res) => {
     let user = await userModel.findOne({ username: req.user.username })
     await user.updateOne({ $pull: { cart: { productId: req.params.id } } })
     try {
@@ -245,22 +242,37 @@ router.get('/checkout/:id', isLoggedInStrict, async (req, res) => {
     let product = await productModel.findOne({ _id: req.params.id })
     res.render('checkout', {user: req.user, cart: user.cart, product})
 })
-router.post('/order/:id', isLoggedInStrict, async (req,res) => {
-    let {fullName, lastName,street, city, state, zip} = req.body
-    let product = await productModel.findOne({_id: req.params.id})
-    try {
-        let order = await orderModel.create({
-            fullName,
-            lastName,
-            street,
-            city,
-            state,
-            zip,
-        
-        })
-    } catch (error) {
-        
+router.post('/checkout', isLoggedInStrict, async (req,res) => {
+    let {fullName, lastName,street, city, state, zip, single} = req.body
+    let user = await userModel.findOne({ username: req.user.username })
+    if(req.body.single){
+        let product = await productModel.findOne({_id: req.body.productId})
+        console.log(product)
+        try {
+            let order = await orderModel.create({
+                fullName,
+                lastName,
+                shippingAddress : {
+                    street,
+                    city,
+                    state,
+                    zip
+                },
+                items: {productId: product._id},
+                totalPrice: product.price,
+                status: 'confirmed',
+                userId: req.user.userId
+            
+            }) 
+
+            user.orders.push(order)
+            await user.save()
+            res.redirect('/success-checkout')
+        } catch (error) {
+            console.log(error)
+        }
     }
+    
 })
 router.get('/success-checkout', isLoggedIn, async (req, res) => {
     let user = await userModel.findOne({ username: req.user.username })
@@ -304,11 +316,17 @@ router.post('/push', isLoggedIn, isSeller, async (req, res) => {
     }
 })
 
-router.get('/orders', isLoggedIn, async (req, res) => {
-    let 
+router.get('/orders', isLoggedInStrict, async (req, res) => {
+    let user = await userModel.findOne({ username: req.user.username}).populate({
+        path: 'orders',
+        populate: {
+            path: 'items.productId',
+        }
+    })
+    res.render('orders', {user: req.user, orders: user.orders, cart: user.cart })
+   
 })
 router.post('/order', isLoggedIn, async (req, res) => {
-    
     let user = await userModel.findOne({username: req.user.username})
 })
 module.exports = router;

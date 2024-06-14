@@ -8,6 +8,9 @@
   <h1 class="text-2xl font-bold text-gray-800 text-center">Shopping Cart</h1>
   <div class="grid md:grid-cols-3 gap-8 mt-12">
     <div class="md:col-span-2 space-y-4">
+      <% 
+      let price = 0;
+%>
       <% cart.forEach((product) => { %>
         <div class="grid scroll-card grid-cols-3 items-start gap-4">
           <div class="col-span-2 flex items-start gap-4">
@@ -40,7 +43,10 @@
           </div>
         </div>
         <hr class="border-gray-300" />
+        <% let productTotal = product.productId.price + product.quantity %>
+        <% price += productTotal %>
       <% }) %>
+      <%=console.log(price) %>
     </div>
     <div class="bg-gray-100 rounded-sm p-4 h-max">
       <h3 class="text-lg font-bold text-gray-800 border-b border-gray-300 pb-2">Order Summary</h3>
@@ -90,16 +96,16 @@
           </div>
         </div>
         <ul class="text-gray-800 mt-4 space-y-2">
-          <li class="flex flex-wrap gap-4 text-sm">Subtotal <span class="ml-auto font-bold">$200.00</span></li>
-          <li class="flex flex-wrap gap-4 text-sm">Shipping <span class="ml-auto font-bold">$2.00</span></li>
-          <li class="flex flex-wrap gap-4 text-sm">Tax <span class="ml-auto font-bold">$4.00</span></li>
+          <li class="flex flex-wrap gap-4 text-sm">Subtotal <span class="ml-auto font-bold">$<%=price.toFixed(2)%></span></li>
+          <li class="flex flex-wrap gap-4 text-sm">Shipping <span class="ml-auto font-bold">$5.00</span></li>
           <hr class="border-gray-300" />
-          <li class="flex flex-wrap gap-4 text-sm font-bold">Total <span class="ml-auto">$206.00</span></li>
+          <li class="flex flex-wrap gap-4 text-sm font-bold">Total <span class="ml-auto">$<%= price + 5 %></span></li>
         </ul>
         <div class="mt-4 space-y-2">
           <button type="submit" class="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-gray-800 hover:bg-gray-900 text-white rounded-sm">Checkout</button>
           <button type="button" class="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-transparent text-gray-800 border border-gray-300 rounded-sm">Continue Shopping</button>
         </div>
+        <input required name="cart" value="cart" type="text" class="hidden" placeholder="">
       </form>
     </div>
   </div>
