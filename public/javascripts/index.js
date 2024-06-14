@@ -184,26 +184,54 @@ function animations() {
 }
 function addToCart() {
   const addBtn = document.querySelectorAll('.add-btn');
+  const quantity = document.querySelector('.quantity');
+  const icon = document.querySelector('.c-icon')
   addBtn.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       let id = btn.getAttribute('data-fitId')
-      fetch(`add-to-cart/${id}`, {
+      fetch(`/add-to-cart/${id}`, {
         method: 'POST'
       }).then((response) => response.json())
       .then((data => {
-        btn.textContent = 'added to cart'
-      })).catch((error) => console.log(error.message))
+        if (data.redirect) {
+          window.location.href = '/access'
+
+        } else{
+        btn.innerHTML = `<i class="ri-check-line"></i> Added to cart`
+        quantity.textContent = data.cart.length
+        }
+       
+      })).catch((error) => console.log(error))
     })
   })
 }
+
 addToCart()
-
-function editQuantity() {
-  const editBtn = document.querySelector('.')
-}
-
-
-
 animations()
 jsTouch()
 swiperAnimation()
+
+function cartAnimation() {
+  let tl = gsap.timeline()
+  gsap.fromTo('.cart-done', {
+    opacity:1,
+    duration: 1,
+    y: 50
+  }, {
+    opacity: 0,
+    duration: 15,
+    ease: 'power2.out'
+  })
+  tl.to('.success-msg', {
+    opacity: 1,
+    duration: 2,
+    y: -40,
+    delay: .8,
+    ease: 'expo.inOut'
+  })
+  
+}
+cartAnimation()
+function redirectToHomepage() {
+  window.location.href = "/";
+}

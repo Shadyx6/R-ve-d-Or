@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const isLoggedIn = require('../middlewares/auth')
+const {isLoggedIn, isLoggedInStrict} = require('../middlewares/auth')
 const isSeller = require('../middlewares/isSeller')
 const productsModel = require('../models/product-model')
 const bcrypt = require('bcrypt')
@@ -49,9 +49,10 @@ router.post('/sellersign',isLoggedIn, async (req, res) => {
     }
 })
 
-router.get('/dashboard', isLoggedIn, isSeller, (req, res) => {
-    let user = req.user
-    res.render('dashboard', { user })
+router.get('/dashboard', isLoggedInStrict, isSeller, async (req, res) => {
+    let user = await userModel.findOne({username: req.user.username})
+    let cart = user.cart
+    res.render('dashboard', { user, cart })
 })
 
 router.post('/push', isLoggedIn, isSeller, async (req, res) => {
@@ -91,10 +92,11 @@ router.post('/push', isLoggedIn, isSeller, async (req, res) => {
     }
 })
 
-router.get('/plusproducts', isLoggedIn, isSeller, async (req,res) => {
+router.get('/plusproducts', isLoggedInStrict, isSeller, async (req,res) => {
+    let user = await userModel.findOne({username: req.user.username})
+    let cart = user.cart
     let seller = await userModel.findOne({ username: req.user.username }).populate('products')
-    res.render('plusproducts', {products: seller.products, user: req.user})
-    
+    res.render('plusproducts', {products: seller.products, user: req.user, cart})
 })
 
 module.exports = router

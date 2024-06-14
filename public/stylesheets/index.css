@@ -214,4 +214,14 @@ color: #DE5D83;
         margin-left: -10.5rem !important;
     }
   }
-  
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
