@@ -231,3 +231,12 @@ color: #DE5D83;
 .fade-in {
     animation: fadeIn 1s ease-in-out;
 }
+
+#searchButton {
+    @apply rounded-full bg-gray-100 hover:bg-gray-200 p-2;
+  }
+  
+  #searchBar {
+    @apply transition duration-150 ease-in-out;
+  }
+  
