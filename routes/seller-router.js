@@ -7,44 +7,50 @@ const bcrypt = require('bcrypt')
 const userModel = require('../models/user-model')
 const jwt = require('jsonwebtoken')
 
-router.get('/sellershub', isLoggedIn, (req, res) => {
+router.get('/signup', isLoggedIn, async (req, res) => {
     let error = req.flash('error')
+    let user = await userModel.findOne({ username: req.user.username})
     let sellerError = req.flash('sellerError')
     if (req.user === 'unsigned') {
         req.flash('sellerError', 'You must be logged in to become a seller ')
         return res.redirect('/access')
     }
     else {
-        res.render('sellersignup', { error, sellerError })
+        res.render('sellersignup', { error, sellerError, user: req.user, req: req, cart: user.cart })
     }
 })
 router.post('/sellersign',isLoggedIn, async (req, res) => {
     let { email, password } = req.body
+    console.log(req.body)
     let user = await userModel.findOne({ email })
+    if (user.username !== req.user.username) {
+        req.flash('sellerError', 'Please use your registered account for a seller account')
+        return res.redirect('/seller/signup')
+    }
     if (!user) {
         req.flash('sellerError'), 'please enter correct details'
-        return res.redirect('/sellershub')
+        return res.redirect('/seller/signup')
     }
     if (user && user.isSeller === true) {
         req.flash('sellerError', 'You are already a seller')
-        return res.redirect('/sellershub')
+        return res.redirect('/seller/signup')
     }
-    if (user && user.isSeller === false) {
+    if (user.isSeller === false) {
         try {
             bcrypt.compare(password, user.password, async (err, result) => {
-                if (err) {
-                    req.flash('sellerError', 'Please enter correct details')
-                    return res.redirect('/sellershub')
-                }
                 if (result) {
                     let seller = await userModel.findOneAndUpdate({ _id: user._id }, { isSeller: true })
-                    return res.redirect('/add')
+                    req.session.seller = true
+                    return res.redirect('/seller/dashboard')
+                } else{
+                    req.flash('sellerError', 'Please enter correct details')
+                    return res.redirect('/seller/signup')
                 }
 
             })
         } catch (error) {
             req.flash('sellerError', 'something went wrong')
-            return res.redirect('/sellershub')
+            return res.redirect('/seller/signup')
         }
     }
 })
@@ -52,18 +58,25 @@ router.post('/sellersign',isLoggedIn, async (req, res) => {
 router.get('/dashboard', isLoggedInStrict, isSeller, async (req, res) => {
     let user = await userModel.findOne({username: req.user.username})
     let cart = user.cart
-    res.render('dashboard', { user, cart })
+    let error = req.flash('error')
+    res.render('dashboard', { user, cart, error })
 })
 
 router.post('/push', isLoggedIn, isSeller, async (req, res) => {
     let { title, mainImage, image2, image3, description, price, gender, category, color, tags, image4, image5 } = req.body
     if (!title || !mainImage || !image2 || !image3 || !description || !price || !gender || !category || !color) {
-        return res.send('please enter product details')
+        req.flash('error', 'please enter required details')
+        console.log(req.body)
+        return res.redirect('/seller/dashboard')
     }
     else {
         try {
-            color = color.split(',').map(color => color.trim())
-            category = category.split(',').map(category => category.trim())
+            if (color && color.length > 0) {
+                color = color.split(',').map(tag => tag.trim())
+            }
+            if (category && category.length > 0) {
+                category = category.split(',').map(tag => tag.trim())
+            }
             if (tags && tags.length > 0) {
                 tags = tags.split(',').map(tag => tag.trim())
             }
@@ -85,9 +98,11 @@ router.post('/push', isLoggedIn, isSeller, async (req, res) => {
             let user = await userModel.findOne({ username: req.user.username })
             user.products.push(product)
             await user.save()
-            res.redirect('/dashboard')
+            req.flash('error', 'successfully created')
+            res.redirect('/seller/dashboard')
         } catch (error) {
-            console.log(error.message)
+            req.flash('error', 'something went wrong')
+            res.redirect('/seller/dashboard')
         }
     }
 })

@@ -2,12 +2,8 @@
 
 <div class="bg-[#FFFFF0]">
   <div class="mx-auto  max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <% var searched;
-     var searched = searched == 'undefined' ? false : searched %>
-    <% if (searched){ %>
-      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Search results for <%= request%> <i class="ri-shopping-cart-2-line"></i> </h2>     
-   <% } %>
     <% if (cat){ %>
+
       <h2 class="text-2xl font-bold tracking-tight text-gray-900">Pick your favorite <%= displayCategory%> <i class="ri-shopping-cart-2-line"></i> </h2>     
    <% } %>
    <%if (gen) {%>
@@ -40,7 +36,7 @@
       <% selectedProducts.forEach((fit) => { %>
       <div class="group relative flex flex-col scroll-card">
         <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img onclick="window.location.href='/products/<%=fit._id%>'" src="<%= fit.mainImage %>" alt="Product Image" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+          <img src="<%= fit.mainImage %>" alt="Product Image" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
         </div>
         <div class="mt-4 flex justify-between">
           <div>
@@ -64,26 +60,12 @@
         </div>
       </div>
       <% }) %>
-   
     </div>
-    <% if(selectedProducts.length < 1) {%>
-      <div class="flex w-screen items-center h-16">
-        <p class="text-center text-xl whitespace-nowrap">No products found for your request:(</p>
-      </div>
-        
-    <%  } %>
   </div>
-  
 </div>
-
 
 <%- include('./partials/Footer.ejs') %>
 <script>
-  function selector(gender){
-    if (req.query.gender === gender){
-      'selected'
-    }
-  }
   scrollCard()
   addToCart()
 </script>

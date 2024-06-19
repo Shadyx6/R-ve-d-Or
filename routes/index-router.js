@@ -17,11 +17,11 @@ router.get('/', isLoggedIn, async function (req, res) {
     let feat = await productModel.find({ tags: 'featured' })
     let trendy = await productModel.find({ tags: 'trend' })
     if(req.user === 'unsigned'){
-        return res.render('index', { user: req.user, feat, error, trendy })
+        return res.render('index', { user: req.user, feat, error, trendy, req: req })
     }
     let user = await userModel.findOne({username: req.user.username})
     let cart = user.cart
-    res.render('index', { user: req.user, feat, error, trendy, cart })
+    res.render('index', { user: req.user, feat, error, trendy, req: req, cart })
 
 })
 router.get('/access', function (req, res) {
@@ -110,41 +110,62 @@ router.get('/products', (req, res) => {
 
 router.get('/products/:id', isLoggedIn, async (req, res) => {
     let product = await productsModel.findOne({ _id: req.params.id })
-    let user = await userModel.findOne({username: req.user.username})
-    let cart = user.cart
-    res.render('product', { product: product, user: req.user, cart })
+    if(req.user !== 'unsigned'){
+        let user = await userModel.findOne({username: req.user.username})
+        let cart = user.cart
+        res.render('product', { product: product, user: req.user, cart, productPage: true })
+    } else{
+        res.render('product', { product: product, user: req.user, productPage: true })
+    }
+    
 })
 router.get('/clothings/:category', isLoggedIn, async (req, res) => {
     let category = req.params.category.toLowerCase();
+   
     displayCategory = category.charAt(0).toUpperCase() + category.slice(1);
     if(req.user === 'unsigned'){
+        if(req.query.searched){
+            let request = req.query.searched.toLowerCase()
+            const selectedProducts = await productsModel.find({title: 
+                { $regex: request, $options: 'i'}
+            })
+            return res.render('categorized', { user: req.user, gen: false, cat: false, searched: true, selectedProducts, req:req, searched: true, request: req.query.searched})
+        }
         let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true })
         if(req.query.gender === 'all'){
-            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, })
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, req: req, req})
         } if(req.query.gender === 'men'){
            let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true, gender: 'men' })
-           return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, })
+           return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, req: req, req})
         } if(req.query.gender === 'women'){
             let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true, gender: 'women' })
-            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, })
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, req: req, req})
         } else{
-            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, })
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, req: req, req})
         }
     }
     if(req.user !== 'unsigned'){ 
+       
     let user = await userModel.findOne({username: req.user.username})
     let cart = user.cart
+    if(req.query.searched){
+        let request = req.query.searched.toLowerCase()
+        const selectedProducts = await productsModel.find({title: 
+            { $regex: request, $options: 'i'}
+        })
+        return res.render('categorized', { user: req.user, gen: false, cat: false, searched: true, selectedProducts, cart, req:req, searched: true, request: req.query.searched})
+    }
         let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true })
         if(req.query.gender === 'all'){
-            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart })
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart, req: req })
         } if(req.query.gender === 'men'){
            let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true, gender: 'men' })
-           return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart })
+           return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart, req: req })
         } if(req.query.gender === 'women'){
             let selectedProducts = await productsModel.find({ category: req.params.category, isApproved: true, gender: 'women' })
-            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart })
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart, req: req })
         } else{
-            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart })
+            return res.render('categorized', { user: req.user, selectedProducts, displayCategory, category, cat: true, gen: false, cart, req: req })
         }
     }
 })
@@ -154,11 +175,11 @@ router.get('/fits/:gender', isLoggedIn, async (req, res) => {
     let gender = req.params.gender;
     gender = gender.charAt(0).toUpperCase() + gender.slice(1);
     if(req.user === 'unsigned'){
-        return res.render('categorized', { user: req.user, selectedProducts, gender, gen: true, cat: false,})
+        return res.render('categorized', { user: req.user, selectedProducts, gender, gen: true, cat: false, req: req})
     }
     let user = await userModel.findOne({username: req.user.username})
     let cart = user.cart
-    res.render('categorized', { user: req.user, selectedProducts, gender, gen: true, cat: false, cart })
+    res.render('categorized', { user: req.user, selectedProducts, gender, gen: true, cat: false, cart , req: req})
 })
 
 router.get('/login', (req, res) => {
@@ -166,22 +187,31 @@ router.get('/login', (req, res) => {
     res.render('login', { loginError })
 })
 router.post('/add-to-cart/:id', isLoggedIn, async (req, res) => {
-    if(req.user === 'unsigned') {
-        req.flash('sellerError', 'you need an account to use the cart')
-        return res.status(401).json({ redirect: '/access' })
+    if (req.user === 'unsigned') {
+      req.flash('sellerError', 'you need an account to use the cart');
+      return res.status(401).json({ redirect: '/access' });
     }
-    let user = await userModel.findOne({ username: req.user.username })
-    let product = await productsModel.findOne({ _id: req.params.id })
-    user.cart.push({ productId: product._id })
+  
+    const productId = req.params.id;
+    let user = await userModel.findOne({ username: req.user.username });
+    let product = await productsModel.findOne({ _id: productId });
+  
+    const productInCart = user.cart.find(item => item.productId.toString() === productId);
+  
+    if (productInCart) {
+      productInCart.quantity = productInCart.quantity ? productInCart.quantity + 1 : 1; 
+    } else {
+      user.cart.push({ productId: product._id, quantity: 1 });
+    }
+  
     try {
-        await user.save()
-        res.json({ message: 'products added successfully', cart: user.cart })
+      await user.save();
+      res.json({ message: 'Product quantity updated successfully', cart: user.cart });
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-
-})
-
+  });
+  
 router.get('/cart', isLoggedInStrict, async (req, res) => {
     let error = req.flash('error')
     let user = await userModel.findOne({ username: req.user.username }).populate({ path: 'cart.productId' })
@@ -240,14 +270,13 @@ router.get('/add-quantity/:id', isLoggedIn, async (req, res) => {
 router.get('/checkout/:id', isLoggedInStrict, async (req, res) => {
     let user = await userModel.findOne({ username: req.user.username })
     let product = await productModel.findOne({ _id: req.params.id })
-    res.render('checkout', {user: req.user, cart: user.cart, product})
+    res.render('checkout', {user: req.user, cart: user.cart, product, req: req})
 })
 router.post('/checkout', isLoggedInStrict, async (req,res) => {
-    let {fullName, lastName,street, city, state, zip, single} = req.body
+    let {fullName, lastName,street, city, state, zip, phoneNumber, totalPrice, email} = req.body
     let user = await userModel.findOne({ username: req.user.username })
     if(req.body.single){
         let product = await productModel.findOne({_id: req.body.productId})
-        console.log(product)
         try {
             let order = await orderModel.create({
                 fullName,
@@ -264,69 +293,61 @@ router.post('/checkout', isLoggedInStrict, async (req,res) => {
                 userId: req.user.userId
             
             }) 
-
+            req.session.checkoutDone = 'true'
             user.orders.push(order)
             await user.save()
-            res.redirect('/success-checkout')
+            return res.redirect('/success-checkout')
         } catch (error) {
             console.log(error)
         }
     }
-    
+    if(req.body.cart){
+        let cart = user.cart
+       let orderItems = []
+       cart.forEach((item) => {
+        orderItems.push({
+            productId: item.productId,
+            quantity: item.quantity
+        })
+       })
+        try {
+            let order = await orderModel.create({
+                fullName,
+                email,
+                phoneNumber,
+                shippingAddress : {
+                    street,
+                    city,
+                    state,
+                    zip
+                },
+                items: orderItems,
+                totalPrice: Number(totalPrice) + 5,
+                status: 'confirmed',
+                userId: req.user.userId
+            })
+            req.session.checkoutDone = 'true'
+            user.orders.push(order)
+            user.cart = []
+            await user.save()
+            return res.redirect('/success-checkout')
+        } catch (error) {
+            console.log(error)
+        }
+    }
 })
-router.get('/success-checkout', isLoggedIn, async (req, res) => {
+router.get('/success-checkout', isLoggedInStrict, async (req, res) => {
     let user = await userModel.findOne({ username: req.user.username })
     let cart = user.cart
-    res.render('success-checkout', {user: req.user, cart})
+    res.render('success-checkout', {user: req.user, cart, req: req})
 })
-router.post('/push', isLoggedIn, isSeller, async (req, res) => {
-    let { title, mainImage, image2, image3, description, price, gender, category, color, tags, image4, image5 } = req.body
-    if (!title || !mainImage || !image2 || !image3 || !description || !price || !gender || !category || !color) {
-        return res.send('please enter product details')
+function checkoutCheck(req,res,next) {
+    if(req.session.checkoutDone){
+        return next()
+    } else{
+        req.flash('error', 'You must place an order first')
+        return res.redirect('/cart')
     }
-    else {
-        try {
-            color = color.split(',').map(color => color.trim())
-            category = category.split(',').map(category => category.trim())
-            if (tags && tags.length > 0) {
-                tags = tags.split(',').map(tag => tag.trim())
-            }
-            let product = await productsModel.create({
-                title,
-                mainImage,
-                image2,
-                image3,
-                description,
-                seller: req.user.userId,
-                price,
-                gender,
-                category,
-                color,
-                tags,
-                image4,
-                image5
-            })
-            let user = await userModel.findOne({ username: req.user.username })
-            user.products.push(product)
-            await user.save()
-            res.redirect('/dashboard')
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
-})
+}
 
-router.get('/orders', isLoggedInStrict, async (req, res) => {
-    let user = await userModel.findOne({ username: req.user.username}).populate({
-        path: 'orders',
-        populate: {
-            path: 'items.productId',
-        }
-    })
-    res.render('orders', {user: req.user, orders: user.orders, cart: user.cart })
-   
-})
-router.post('/order', isLoggedIn, async (req, res) => {
-    let user = await userModel.findOne({username: req.user.username})
-})
 module.exports = router;

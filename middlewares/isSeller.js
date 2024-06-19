@@ -12,12 +12,12 @@ async function isSeller(req, res, next) {
             }
             else {
                 req.flash('sellerError', 'Please create a seller account to sell products')
-                return res.redirect('/sellershub')
+                return res.redirect('/seller/signup')
             }
 
         } catch (error) {
             req.flash('sellerError', 'something went wrong')
-            res.redirect('/sellershub')
+            res.redirect('/seller/signup')
         }
 
     }

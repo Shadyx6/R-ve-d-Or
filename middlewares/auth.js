@@ -15,6 +15,7 @@ function isLoggedIn(req, res, next) {
         }
     } else{
         req.user = 'unsigned'
+        req.session.seller = false
         next()
     }
 }
@@ -37,5 +38,6 @@ function isLoggedInStrict(req, res, next) {
         res.redirect('/access')
     }
 }
+
 module.exports.isLoggedIn = isLoggedIn
 module.exports.isLoggedInStrict = isLoggedInStrict

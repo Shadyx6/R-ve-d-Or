@@ -11,3 +11,11 @@ function handleClick() {
 }
 toggleOpen.addEventListener('click', handleClick);
 toggleClose.addEventListener('click', handleClick);
+
+function isActive(url) {
+  if(req.path === url) {
+    active
+  } else{
+    white
+  }
+}

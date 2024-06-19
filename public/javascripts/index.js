@@ -73,19 +73,7 @@ function animations() {
         end: 'bottom center',
       }
     })
-    gsap.from('.scroll-card', {
-      opacity: 0,
-      duration: 1,
-      y: 50,
-      stagger: 0.1,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.scroll-card',
-        start: 'top 90%',
-        end: 'bottom center',
-      }
-    })
-
+scrollCard()
   }
   function timelineAnimate() {
     let tl = gsap.timeline()
@@ -182,6 +170,21 @@ function animations() {
   timelineAnimate()
   firstPageAnimate()
 }
+function scrollCard() {
+  gsap.from('.scroll-card', {
+    opacity: 0,
+    duration: 1,
+    y: 50,
+    stagger: 0.1,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.scroll-card',
+      start: 'top 90%',
+      end: 'bottom center',
+    }
+  })
+}
+
 function addToCart() {
   const addBtn = document.querySelectorAll('.add-btn');
   const quantity = document.querySelector('.quantity');
@@ -205,33 +208,31 @@ function addToCart() {
     })
   })
 }
-
-addToCart()
-animations()
-jsTouch()
-swiperAnimation()
+function showCancelPopup(orderId) {
+  document.getElementById('cancelOrderPopup').classList.remove('hidden');
+  document.getElementById('confirmCancelButton').setAttribute('onclick', `cancelOrder('${orderId}')`);
+}
+function hideCancelPopup() {
+  document.getElementById('cancelOrderPopup').classList.add('hidden');
+}
+function redirectToHomepage() {
+    window.location.href = "/"
+}
 
 function cartAnimation() {
-  let tl = gsap.timeline()
-  gsap.fromTo('.cart-done', {
-    opacity:1,
-    duration: 1,
-    y: 50
-  }, {
-    opacity: 0,
-    duration: 15,
-    ease: 'power2.out'
+  gsap.to('.cart-done', {
+    opacity: 1,
+    y:20,
+    duration: 2,
+    ease: 'power2.out',
   })
-  tl.to('.success-msg', {
+  gsap.to('.success-msg', {
     opacity: 1,
     duration: 2,
+    delay: .5,
     y: -40,
-    delay: .8,
     ease: 'expo.inOut'
   })
   
 }
-cartAnimation()
-function redirectToHomepage() {
-  window.location.href = "/";
-}
+

@@ -45,7 +45,8 @@ const orderSchema = mongoose.Schema({
     enum: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'],
     default: 'confirmed',
   },
-  
+  phoneNumber: { type: String},
+  email: { type: String},
   createdAt: {
     type: Date,
     default: Date.now,
