@@ -26,7 +26,7 @@
         </h1>
         <button
           onclick="window.location.href='/products/66643c8ecccf0d60cab23fba'"
-          class="text-white link link0 text-2xl mx-6 sm:text-base lg:mt-40 md:mt-28 sm:mt-24 h-fit w-fit py-2 px-5 max-md:absolute text-center flex items-center justify-center gap-1 max-sm:hidden bg-pink-800 z-50 rounded-full py-1 px-2"
+          class="text-white link link0 text-2xl 2xl:mt-48 mx-6 sm:text-base lg:mt-40 md:mt-28 sm:mt-24 h-fit w-fit py-2 px-5 max-md:absolute text-center flex items-center justify-center gap-1 max-sm:hidden bg-pink-800 z-50 rounded-full py-1 px-2"
         >
           Make it yours
           <span class="text-center material-symbols-outlined">
@@ -57,7 +57,7 @@
           >
         </h1>
         <button
-          onclick="window.location.href='/products/66643c8ecccf0d60cab23fba'"
+          onclick="window.location.href='/products/6673de9c9fac82b0726a1431'"
           class="text-white link link1 flex justify-items-center px-4 opacity-0 py-2 2xl:mt-72 max-sm:-ml-48 max-sm:text-base sm:mt-64 ml-6 absolute max-sm:mt-28 max-lg:scale-75 lg:ml-6 sm:ml-0 bg-pink-800 max-sm:scale-70 z-50 rounded-full py-1 px-2"
         >
           Make it yours
@@ -67,7 +67,7 @@
         </button>
         <img
           class="h-full w-full sm-object-cover sm:ml-24 md:object-contain"
-          src="/media/mens.webp"
+          src="/media/mens.png"
           alt="product image"
         />
       </div>
@@ -273,7 +273,11 @@
     </section>
   </div>
 </div>
-
+<% if(error && error.length > 0) { %>
+  <div class="flash fixed inset-0 flex z-50 justify-center items-center ">
+    <p class="text-red-600 rounded py-1 px-4 h-fit w-fit bg-gray-200 text-lg md:text-2xl lg:text-2xl"><%= error[0] %></p>
+  </div>
+<% } %> 
 <%- include('partials/Footer.ejs') %>
 <script>
   addToCart();

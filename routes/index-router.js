@@ -110,6 +110,10 @@ router.get('/products', (req, res) => {
 
 router.get('/products/:id', isLoggedIn, async (req, res) => {
     let product = await productsModel.findOne({ _id: req.params.id })
+    if(!product.isApproved){
+        req.flash('error', 'product not approved yet')
+        return res.redirect('/')
+    }
     if(req.user !== 'unsigned'){
         let user = await userModel.findOne({username: req.user.username})
         let cart = user.cart

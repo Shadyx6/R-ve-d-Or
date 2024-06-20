@@ -5,16 +5,16 @@
     <div class="hidden lg:grid col-span-2 grid-cols-2 h-[90vh] lg:sticky top-0">
       <div class="grid grid-cols-2 gap-0">
         <div>
-          <img src="<%= product.image3 %>" alt="Product main" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('<%= product.image3 %>')" />
+          <img id="img3" src="<%= product.image3 %>" alt="Product main" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('img3','<%= product.image3 %>')" />
         </div>
         <div>
-          <img src="<%= product.image2 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('<%= product.image2 %>')" />
+          <img id="img2" src="<%= product.image2 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('img2','<%= product.image2 %>')" />
         </div>
         <div>
-          <img src="<%= product.image5 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('<%= product.image5 %>')" />
+          <img id="img5" src="<%= product.image5 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('img5','<%= product.image5 %>')" />
         </div>
         <div>
-          <img src="<%= product.image4 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('<%= product.image4 %>')" />
+          <img id="img4" src="<%= product.image4 %>" alt="Product" class="w-full h-full object-cover object-top shadow-md cursor-pointer" onclick="changeImage('img4','<%= product.image4 %>')" />
         </div>
       </div>
       <div>
@@ -126,8 +126,12 @@
 
 <%- include('./partials/Footer.ejs') %>
 <script>
-  function changeImage(imageSrc) {
-    document.getElementById('mainImage').src = imageSrc;
+  function changeImage(clickedImageId, newSrc) {
+    const mainImage = document.getElementById('mainImage');
+    const clickedImage = document.getElementById(clickedImageId);
+    const tempSrc = mainImage.src;
+    mainImage.src = newSrc;
+    clickedImage.src = tempSrc;
   }
 
   var swiper = new Swiper('.swiper-container', {
