@@ -31,4 +31,4 @@ app.use('/seller', sellerRouter)
 
 
 
-app.listen(3000)
+module.exports = app
