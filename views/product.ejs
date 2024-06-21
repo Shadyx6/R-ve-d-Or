@@ -83,7 +83,7 @@
       <!-- Product Price -->
       <div class="mt-8">
         <p class="text-gray-800 text-3xl font-bold">$<%= product.price %></p>
-        <p class="text-gray-400 text-xl mt-1"><strike>$<%= product.price + 46 %></strike> <span class="text-sm ml-1">Tax included</span></p>
+        <p class="text-gray-400 text-xl mt-1"><strike>$<%= (product.price + 46).toFixed(2) %></strike> <span class="text-sm ml-1">Tax included</span></p>
       </div>
 
        <!-- Product Sizes -->

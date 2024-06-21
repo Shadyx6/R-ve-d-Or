@@ -19,7 +19,7 @@ app.use(flash())
 app.use(expressSession({
     resave: false,
     saveUninitialized: false,
-    secret: 'hello'
+    secret: process.env.EXPRESS_KEY
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -31,4 +31,4 @@ app.use('/seller', sellerRouter)
 
 
 
-module.exports = app
+app.listen(3000)
