@@ -348,6 +348,7 @@ color: #DE5D83;
   @media screen and (min-width: 1440px) {
     .swiping-btn{
         display: none !important;
+        opacity: 0 !important;
     }
   }
 
