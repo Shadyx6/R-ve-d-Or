@@ -6,7 +6,7 @@ const orderModel = require('../models/order-model');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const debug = require('debug')('development:routes')
-const { isLoggedInStrict, isLoggedIn } = require('../middlewares/auth')
+const { isLoggedInStrict, isLoggedIn, redirectIfLogin } = require('../middlewares/auth')
 const isSeller = require('../middlewares/isSeller')
 const productModel = require('../models/product-model')
 require('dotenv').config()
@@ -24,7 +24,7 @@ router.get('/', isLoggedIn, async function (req, res) {
     res.render('index', { user: req.user, feat, error, trendy, req: req, cart })
 
 })
-router.get('/access', function (req, res) {
+router.get('/access', redirectIfLogin, function (req, res) {
     let registerError = req.flash('registerError')
     let loginError = req.flash('loginError')
     let sellerError = req.flash('sellerError')
@@ -186,7 +186,7 @@ router.get('/fits/:gender', isLoggedIn, async (req, res) => {
     res.render('categorized', { user: req.user, selectedProducts, gender, gen: true, cat: false, cart , req: req})
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', redirectIfLogin, (req, res) => {
     let loginError = req.flash('loginError')
     res.render('login', { loginError })
 })

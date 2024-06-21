@@ -38,6 +38,14 @@ function isLoggedInStrict(req, res, next) {
         res.redirect('/access')
     }
 }
-
+function redirectIfLogin(req,res,next) {
+    if(req.cookies.token) {
+        res.redirect('/')
+    }
+    else{
+        next()
+    }
+}
 module.exports.isLoggedIn = isLoggedIn
 module.exports.isLoggedInStrict = isLoggedInStrict
+module.exports.redirectIfLogin = redirectIfLogin
