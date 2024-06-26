@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const debug = require('debug')('development:routes')
 const { isLoggedInStrict, isLoggedIn, redirectIfLogin } = require('../middlewares/auth')
+const checkoutCheckout = require('../middlewares/checkout-check')
 const isSeller = require('../middlewares/isSeller')
 const productModel = require('../models/product-model')
 require('dotenv').config()
@@ -340,18 +341,10 @@ router.post('/checkout', isLoggedInStrict, async (req,res) => {
         }
     }
 })
-router.get('/success-checkout', isLoggedInStrict, async (req, res) => {
+router.get('/success-checkout', isLoggedInStrict, checkoutCheckout, async (req, res) => {
     let user = await userModel.findOne({ username: req.user.username })
     let cart = user.cart
     res.render('success-checkout', {user: req.user, cart, req: req})
 })
-function checkoutCheck(req,res,next) {
-    if(req.session.checkoutDone){
-        return next()
-    } else{
-        req.flash('error', 'You must place an order first')
-        return res.redirect('/cart')
-    }
-}
 
 module.exports = router;

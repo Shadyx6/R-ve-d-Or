@@ -64,7 +64,7 @@ router.get('/dashboard', isLoggedInStrict, isSeller, async (req, res) => {
 
 router.post('/push', isLoggedIn, isSeller, async (req, res) => {
     let { title, mainImage, image2, image3, description, price, gender, category, color, tags, image4, image5 } = req.body
-    if (!title || !mainImage || !image2 || !image3 || !description || !price || !gender || !category || !color) {
+    if (!title || !mainImage || !image2 || !image3 || !description || !price || !gender || !category || !color || !image4 || !image5) {
         req.flash('error', 'please enter required details')
         console.log(req.body)
         return res.redirect('/seller/dashboard')
